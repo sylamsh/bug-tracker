@@ -1,0 +1,13 @@
+a,
+a:focus,
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
+  color: rgb(82, 82, 82);
+}
+
+a:hover {
+  color : rgba(245, 43, 29, 0.836);
+}
