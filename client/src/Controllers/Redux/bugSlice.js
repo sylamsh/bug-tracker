@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { retrieveBugs } from '../bugController'
 
 const bugSlice = createSlice({
-    name : "bug",
+    name : "bugs",
     initialState : [],
     reducers : {
         getBugs : state => retrieveBugs(),

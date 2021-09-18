@@ -4,6 +4,7 @@ a:hover,
 a:visited,
 a:link,
 a:active {
+  font-size: large;
   text-decoration: none;
   color: rgb(82, 82, 82);
 }

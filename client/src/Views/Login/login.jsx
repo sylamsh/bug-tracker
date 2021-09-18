@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-export default () => {
+export default function Login(){
   const dispatch = useDispatch();
     const [formInput, setFormInput] = useState({
         name : "",

@@ -1,8 +1,9 @@
 import React from 'react'
 
-//Redux
+//Components
 import AppBar from "./appBar";
 import SideBar from './Side-bar/sideBar';
+import ViewBugs from './Pages/viewBugs';
 
 //MUI
 import Box from '@mui/material/Box';
@@ -10,11 +11,10 @@ import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 
-export default () => {
+export default function DashBoard(){
   return (
     <Box sx={{ display: 'flex' }} style={{marginLeft : "-20vw"}}>
       <CssBaseline />
-      {/* HEADER -- APPBAR */}
       <AppBar />
       <SideBar />
       <Box
@@ -22,7 +22,9 @@ export default () => {
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
       >
         <Toolbar />
-        <Typography paragraph>
+        <ViewBugs />
+
+        {/* <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -35,7 +37,7 @@ export default () => {
           feugiat vivamus at augue. At augue eget arcu dictum varius duis at
           consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
           sapien faucibus et molestie ac.
-        </Typography>
+        </Typography> */}
       </Box>
     </Box>
   );

@@ -15,7 +15,7 @@ import ListItem from '@mui/material/ListItem';
 
 const drawerWidth = 240;
 
-export default () => {
+export default function SideBar(){
     const dispatch = useDispatch();
     const { auth } = useSelector(state => state);
     const SignOut = () =>{
