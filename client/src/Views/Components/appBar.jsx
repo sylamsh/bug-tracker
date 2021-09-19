@@ -7,7 +7,7 @@ function appBarr() {
     return (
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar>
-            <Typography variant="h5" noWrap component="div" style={{color : "rgba(240, 240, 201, 1)"}}>
+            <Typography variant="h5" noWrap component="div" style={{color : "white"}}>
                 Bug Tracker
             </Typography>
             </Toolbar>

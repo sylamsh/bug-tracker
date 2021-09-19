@@ -6,7 +6,7 @@
 .side-link:active {
   font-size: large;
   text-decoration: none;
-  color: rgba(247, 247, 233, 1);
+  color: white;
 }
 
 .side-link:hover {

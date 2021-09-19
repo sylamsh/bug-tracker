@@ -31,7 +31,7 @@ const theme = createTheme({
       // #83b692 - dark sea green
     },
     info : {
-      main: '#1e7dad',
+      main: '#115577',
     },
     warning : {
       main: '#f2bb05',

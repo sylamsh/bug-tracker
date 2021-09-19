@@ -52,7 +52,7 @@ export default function SideBar(){
                   variant="contained"
                   sx={{ mt: 1, mb: 1}}
                   color="error"
-                  style={{color : "rgba(240, 240, 201, 1)"}}
+                  // style={{color : "rgba(240, 240, 201, 1)"}}
                   onClick={SignOut}>
                 Logout
                 </Button>
