@@ -1,5 +1,8 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+
 import PriorityController from '../../Controllers/priorityController';
+import {markResolved} from '../../Controllers/Redux/bugSlice';
 
 //MUI
 import Box from '@mui/material/Box';
@@ -12,6 +15,7 @@ import Typography from '@mui/material/Typography';
 
 const OutlinedCard = (props) => {
     console.log(props.bug);
+    const dispatch = useDispatch();
     const {name, details, steps, version, priority, assigned, creator, time} = props.bug;
     const {level, BGcolor, Tcolor} = PriorityController(props.bug.priority);
     const collapse = () => {
@@ -40,22 +44,25 @@ const OutlinedCard = (props) => {
             fontStyle="italic">
             assigned to {assigned}
             </Typography>
-        <Typography sx={{ fontSize: 16 }} color="text.primary" style={{fontWeight:"bold"}}>
+        <Typography variant="h5" color="text.primary" style={{fontWeight:"bold"}} align="right">
         {version}
        </Typography>
-      {/* <Typography variant="h5" component="div" >
-        lorem
-      </Typography> */}
+      <Typography variant="h5">
+        Steps
+      </Typography>
       <Typography sx={{ mb: 1.5 }} variant="body1">
-        Steps{steps}
+        {steps}
+      </Typography>
+      <Typography variant="h5">
+        Details
       </Typography>
       <Typography variant="body2">
-        Details{details}
+        {details}
       </Typography>
     </CardContent>
     <CardActions>
-      <Button variant="contained" color="success" style={{margin:"0 auto"}}>Reolved!</Button>
-      <Button style={{margin:"0 auto"}} onClick={collapse}>colapse</Button>
+      <Button variant="contained" color="success" style={{margin:"0 auto"}} onClick={()=>{dispatch(markResolved())}}>Resolved!</Button>
+      <Button variant="outlined" style={{margin:"0 auto"}} onClick={collapse}>collapse</Button>
     </CardActions>
   </React.Fragment>
 };
@@ -63,8 +70,8 @@ const OutlinedCard = (props) => {
 export default function BugView(props) {
     console.log(props.bug);
     return (
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined" className="bug-card">
+    <Box sx={{ minWidth: 275}}>
+      <Card className="bug-card" >
           <OutlinedCard bug={props.bug} collapse={props.collapse}/>
       </Card>
     </Box>

@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 
 const OutlinedCard = (props) => {
     const {name, version, details} = props.bug;
+    const {level, BGcolor, Tcolor} = PriorityController(props.bug.priority);
 
     return  <React.Fragment>
     <CardContent style={{color : props.Tcolor}}>

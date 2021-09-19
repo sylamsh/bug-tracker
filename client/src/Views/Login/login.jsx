@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import {useDispatch} from "react-redux";
 import {signIn} from "../../Controllers/Redux/authSlice"
-import "./login.css";
+import AppBar from "../Components/appBar";
 
 //MUI
 import Button from '@mui/material/Button';
@@ -12,9 +12,33 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Toolbar from '@mui/material/Toolbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const theme = createTheme();
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#124e78',
+    },
+    secondary: {
+      main: '#f0f0c9',
+    },
+    error: {
+      main : "#6e0e0a"
+    },
+    success : {
+      main: '#3f6c51',
+      // #83b692 - dark sea green
+    },
+    info : {
+      main: '#4a778d',
+    },
+    warning : {
+      main: '#f2bb05',
+    },
+  },
+});
 
 export default function Login(){
   const dispatch = useDispatch();
@@ -37,6 +61,8 @@ export default function Login(){
   return (
     <div className="loginBG">
       <ThemeProvider theme={theme}>
+        <AppBar />
+        <Toolbar />
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box

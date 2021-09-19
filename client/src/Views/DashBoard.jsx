@@ -12,25 +12,51 @@ import ViewBugs from './Pages/viewBugs';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
-import bugSlice from '../Controllers/Redux/bugSlice';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#124e78',
+    },
+    secondary: {
+      main: '#f0f0c9',
+    },
+    error: {
+      main : "#6e0e0a"
+    },
+    success : {
+      main: '#3f6c51',
+      // #83b692 - dark sea green
+    },
+    info : {
+      main: '#1e7dad',
+    },
+    warning : {
+      main: '#f2bb05',
+    },
+  },
+});
 
 export default function DashBoard(){
   return (
-    <Box sx={{ display: 'flex' }} style={{marginLeft : "-20vw"}}>
-      <CssBaseline />
-      <AppBar />
-      <SideBar />
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-        
-      >
-        <Toolbar />
-        <Switch>
-          <Route path="/viewBugs"><ViewBugs/></Route>
-        </Switch>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar />
+        <SideBar />
+        <Box
+          component="main"
+          sx={{ flexGrow: 1,  p: 3 }}
+        >
+          <Toolbar />
+          <Switch>
+            <Route path="/viewBugs"><ViewBugs/></Route>
+          </Switch>
+        </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 }
 

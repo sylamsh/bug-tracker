@@ -1,14 +1,14 @@
-a,
-a:focus,
-a:hover,
-a:visited,
-a:link,
-a:active {
+.side-link,
+.side-link:focus,
+.side-link:hover,
+.side-link:visited,
+.side-link:link,
+.side-link:active {
   font-size: large;
   text-decoration: none;
-  color: rgb(82, 82, 82);
+  color: rgba(247, 247, 233, 1);
 }
 
-a:hover {
-  color : rgba(18, 78, 120, 1);
+.side-link:hover {
+  color : rgba(242, 187, 5);
 }

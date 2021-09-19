@@ -28,20 +28,20 @@ export default function SideBar(){
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', bgcolor: "info.main"},
         }}
       >
       <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
             <List>
               <ListItem>
-                <Link to='/' >Dash Board</Link>
+                <Link to='/' className="side-link">Dash Board</Link>
               </ListItem>
               {auth.admin && <ListItem>
-                <Link to='/create' >Create</Link>
+                <Link to='/create' className="side-link">Create</Link>
               </ListItem>}
               <ListItem>
-                <Link to='/viewBugs' >View Bugs</Link>
+                <Link to='/viewBugs' className="side-link">View Bugs</Link>
               </ListItem>
           </List>
           <Divider />
@@ -51,7 +51,8 @@ export default function SideBar(){
                   fullWidth
                   variant="contained"
                   sx={{ mt: 1, mb: 1}}
-                  style={{backgroundColor : "rgba(110, 14, 10, 1)", color : "rgba(240, 240, 201, 1)"}}
+                  color="error"
+                  style={{color : "rgba(240, 240, 201, 1)"}}
                   onClick={SignOut}>
                 Logout
                 </Button>

@@ -1,3 +1,13 @@
-#root {
-  margin-left: 20vw;
+a,
+a:focus,
+a:visited,
+a:link,
+a:active{
+    font-size: large;
+    text-decoration: none;
+    color:#124e78;
+}
+
+a:hover {
+    color:#f2bb05;
 }

@@ -8,7 +8,9 @@ const bugSlice = createSlice({
         getBugs : state => retrieveBugs(),
         createBugs : (state, action) => {},
         updateBugs : (state, action) => {},
-        markResolved : (state, action) => {}
+        markResolved : (state, action) => {
+            console.log("Resolved");
+        }
     }
 })
 
