@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from "../../Controllers/Redux/authSlice"
+import { signOut } from "../../../Controllers/Redux/authSlice"
 import './sideBar.css'
 
 //MUI
@@ -50,8 +50,8 @@ export default function SideBar(){
                 <Button
                   fullWidth
                   variant="contained"
-                  color="error"
                   sx={{ mt: 1, mb: 1}}
+                  style={{backgroundColor : "rgba(110, 14, 10, 1)", color : "rgba(240, 240, 201, 1)"}}
                   onClick={SignOut}>
                 Logout
                 </Button>
