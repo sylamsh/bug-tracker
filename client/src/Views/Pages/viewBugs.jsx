@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ViewBugs(){
     const [displayBug, setDisplayBug] = useState({
       _id : null,
-      isDisplay : false,
     });
     const dispatch = useDispatch();
     const {bugs} = useSelector(state => state);
@@ -35,23 +34,28 @@ export default function ViewBugs(){
     function BugClicked(_id) {
       setDisplayBug({
         _id : _id,
-        isDisplay : !displayBug.isDisplay,
       });
       console.log("ya clicked ", _id);
+    }
+
+    function CollapseView(_id) {
+      setDisplayBug({
+        _id: null
+      })
     }
     
     const classes = useStyles();
     return( 
     <Grid container className={classes.root} spacing={2}>
-        <Grid container justify="center" spacing={2}>
+        <Grid container justify="left" spacing={2}>
             {bugs.map( (bug, key) => {
                 return (
                 <Grid key={key} item>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={12}>
                     {bug._id !== displayBug._id && <BugCard bug={bug} clicked={BugClicked}/>}
                   </Grid>
                   <Grid item xs={12}> 
-                    {displayBug.isDisplay && bug._id === displayBug._id && <BugView bug={bug} />}
+                    {bug._id === displayBug._id && <BugView bug={bug} collapse={CollapseView}/>}
                   </Grid>
                 </Grid>
                 );

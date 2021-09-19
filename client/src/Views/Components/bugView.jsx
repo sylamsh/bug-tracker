@@ -65,7 +65,7 @@ export default function BugView(props) {
     return (
     <Box sx={{ minWidth: 275 }}>
       <Card variant="outlined" className="bug-card">
-          <OutlinedCard bug={props.bug}/>
+          <OutlinedCard bug={props.bug} collapse={props.collapse}/>
       </Card>
     </Box>
   );
