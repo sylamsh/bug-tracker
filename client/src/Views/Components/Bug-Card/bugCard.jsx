@@ -35,7 +35,7 @@ const OutlinedCard = (props) => {
 export default function Bugcard(props) {
     const {level, BGcolor, Tcolor} = PriorityController(props.bug.priority);
     const Clicked = () => {
-        props.clicked(props.bug._id);
+        props.clicked(props.bug._id, props.bug.priority);
     }
     
     return (

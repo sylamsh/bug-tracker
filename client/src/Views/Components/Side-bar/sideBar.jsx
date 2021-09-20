@@ -15,7 +15,7 @@ import ListItem from '@mui/material/ListItem';
 
 const drawerWidth = 240;
 
-export default function SideBar(){
+export default function SideBar(props){
     const dispatch = useDispatch();
     const { auth } = useSelector(state => state);
     const SignOut = () =>{
@@ -35,13 +35,13 @@ export default function SideBar(){
         <Box sx={{ overflow: 'auto' }}>
             <List>
               <ListItem>
-                <Link to='/' className="side-link">Dash Board</Link>
+                <Link to='/' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Dash Board</Link>
               </ListItem>
               {auth.admin && <ListItem>
-                <Link to='/create' className="side-link">Create</Link>
+                <Link to='/create' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Create</Link>
               </ListItem>}
               <ListItem>
-                <Link to='/viewBugs' className="side-link">View Bugs</Link>
+                <Link to='/viewBugs' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>View Bugs</Link>
               </ListItem>
           </List>
           <Divider />

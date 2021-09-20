@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewBugs(){
+export default function ViewBugs(props){
     const [displayBug, setDisplayBug] = useState({
       _id : null,
     });
@@ -31,10 +31,11 @@ export default function ViewBugs(){
         dispatch(getBugs());
     }, [bugs.length < 1])
 
-    function BugClicked(_id) {
+    function BugClicked(_id, priority) {
       setDisplayBug({
         _id : _id,
       });
+      props.ChangePriorityTheme(priority);
       console.log("ya clicked ", _id);
     }
 
@@ -42,6 +43,7 @@ export default function ViewBugs(){
       setDisplayBug({
         _id: null
       })
+      props.ChangePriorityTheme(null);
     }
     
     const classes = useStyles();
