@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getBugs} from  "../../Controllers/Redux/bugSlice";
-import BugCard from "../Components/Bug-Card/bugCard";
+import BugCard from "../Components/bugCard";
 import BugView from "../Components/bugView";
 
 //MUI

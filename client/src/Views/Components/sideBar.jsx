@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from "../../../Controllers/Redux/authSlice"
+import { signOut } from "../../Controllers/Redux/authSlice"
 import './sideBar.css'
 
 //MUI
@@ -38,7 +38,7 @@ export default function SideBar(props){
                 <Link to='/' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Dash Board</Link>
               </ListItem>
               {auth.admin && <ListItem>
-                <Link to='/create' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Create</Link>
+                <Link to='/form' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Create/Edit</Link>
               </ListItem>}
               <ListItem>
                 <Link to='/viewBugs' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>View Bugs</Link>

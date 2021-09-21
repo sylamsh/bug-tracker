@@ -1,8 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {useDispatch} from "react-redux";
 
 import PriorityController from '../../Controllers/priorityController';
 import {markResolved} from '../../Controllers/Redux/bugSlice';
+
+import EditPanel from './editPanel';
 
 //MUI
 import Box from '@mui/material/Box';
@@ -20,11 +22,13 @@ const OutlinedCard = (props) => {
     const collapse = () => {
         props.collapse(props.bug._id);
     };
+    const editClicked = () => {}
+    const deleteClicked = () => {}
 
     return  <React.Fragment>
     <CardHeader
         action={
-            <Button variant="contained" style={{marginTop:"10%"}}>Assign to</Button>
+            <EditPanel editClicked={editClicked} deleteClicked={deleteClicked} bug={props.bug}/>
         }
         title = {name}
         subheader = {level}
@@ -60,6 +64,7 @@ const OutlinedCard = (props) => {
       </Typography>
     </CardContent>
     <CardActions>
+      <Button variant="contained" style={{margin:"0 auto"}}>Assign to</Button>
       <Button variant="contained" color="success" style={{margin:"0 auto"}} onClick={()=>{dispatch(markResolved())}}>Resolved!</Button>
       <Button variant="outlined" style={{margin:"0 auto"}} onClick={collapse}>collapse</Button>
     </CardActions>

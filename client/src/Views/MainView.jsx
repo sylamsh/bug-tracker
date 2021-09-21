@@ -4,11 +4,11 @@ import PriorityController from '../Controllers/priorityController';
 
 //Components
 import AppBar from "./Components/appBar";
-import SideBar from './Components/Side-bar/sideBar';
+import SideBar from './Components/sideBar';
 
 //Pages
 import ViewBugs from './Pages/viewBugs';
-import CreateBugIssue from './Pages/createBugIssue';
+import BugForm from './Pages/bugForm';
 
 //MUI
 import Box from '@mui/material/Box';
@@ -44,7 +44,7 @@ export default function DashBoard(){
         main: BGcolor,
       },
       warning : {
-        main: '#f2bb05',
+        main: '#ffffff',
       },
     },
   });
@@ -62,7 +62,7 @@ export default function DashBoard(){
           <Toolbar />
           <Switch>
             <Route path="/viewBugs"><ViewBugs ChangePriorityTheme={ChangePriorityTheme} /></Route>
-            <Route path="/create"><CreateBugIssue ChangePriorityTheme={ChangePriorityTheme} /></Route>
+            <Route path="/form"><BugForm ChangePriorityTheme={ChangePriorityTheme} /></Route>
           </Switch>
         </Box>
       </Box>

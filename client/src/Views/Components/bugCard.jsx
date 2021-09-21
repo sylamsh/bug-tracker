@@ -1,5 +1,5 @@
 import React from 'react';
-import PriorityController from '../../../Controllers/priorityController';
+import PriorityController from '../../Controllers/priorityController';
 
 //MUI
 import Box from '@mui/material/Box';

@@ -2,7 +2,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {BrowserRouter as Router} from "react-router-dom";
 import Login from "./Views/Login/login"
-import DashBoard from "./Views/DashBoard";
+import MainView from "./Views/MainView";
 
 function App() {
   const {auth} = useSelector(state => state);
@@ -10,7 +10,7 @@ function App() {
     <Router>
       {!auth.LoggedIn ? <Login /> : 
       <>
-        <DashBoard />
+        <MainView />
       </>}
     </Router>
   );
