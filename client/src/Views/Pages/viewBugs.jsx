@@ -49,7 +49,7 @@ export default function ViewBugs(props){
     const classes = useStyles();
     return( 
     <Grid container className={classes.root} spacing={2}>
-        <Grid container justify="left" spacing={2}>
+        <Grid container justifyContent="space-between" spacing={2}>
             {bugs.map( (bug, key) => {
                 return (
                 <Grid key={key} item>

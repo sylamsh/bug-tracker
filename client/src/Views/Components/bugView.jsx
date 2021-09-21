@@ -14,10 +14,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 const OutlinedCard = (props) => {
-    console.log(props.bug);
     const dispatch = useDispatch();
     const {name, details, steps, version, priority, assigned, creator, time} = props.bug;
-    const {level, BGcolor, Tcolor} = PriorityController(props.bug.priority);
+    const {level, BGcolor, Tcolor} = PriorityController(priority);
     const collapse = () => {
         props.collapse(props.bug._id);
     };
@@ -68,7 +67,6 @@ const OutlinedCard = (props) => {
 };
 
 export default function BugView(props) {
-    console.log(props.bug);
     return (
     <Box sx={{ minWidth: 275}}>
       <Card className="bug-card" >

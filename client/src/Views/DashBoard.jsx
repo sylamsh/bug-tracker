@@ -28,7 +28,7 @@ export default function DashBoard(){
     palette: {
       primary: {
         main: Themecolor,
-        text: Tcolor,
+        text: "Tcolor",
       },
       secondary: {
         main: '#f0f0c9',
@@ -53,7 +53,7 @@ export default function DashBoard(){
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar />
+        <AppBar Tcolor={Tcolor}/>
         <SideBar ChangePriorityTheme={ChangePriorityTheme}/>
         <Box
           component="main"

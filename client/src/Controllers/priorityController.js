@@ -1,13 +1,13 @@
-const Themecolor = ["rgba(137, 30, 10, 1)", "rgba(215, 78, 9, 1)", "rgba(242, 187, 5, 1)"];
-const BGcolor = ["rgba(137, 30, 10, 0.8)", "rgba(215, 78, 9, 0.8)", "rgba(242, 187, 5, 0.8)"];
-const Tcolor = ["rgba(240, 240, 201, 1)", "rgba(247, 247, 233, 1)", "rgba(18, 78, 120, 1)"];
+const Themecolor = ["rgba(137, 30, 10, 1)", "rgba(215, 78, 9, 1)", "rgba(232, 181, 14, 1)"];
+const BGcolor = ["rgba(137, 30, 10, 0.8)", "rgba(215, 78, 9, 0.8)", "rgba(232, 181, 14, 0.8)"];
+const Tcolor = ["white", "white", "rgba(18, 78, 120, 1)"];
 
 export default function PriorityController(priority) {
     if(priority === null) 
         return ({
             level : null,
-            Themecolor : "rgba(18, 78, 120, 1)",
-            BGcolor : "rgba(18, 78, 120, 0.8)",
+            Themecolor : "rgba(24, 154, 180, 1)",
+            BGcolor : "rgba(24, 154, 180, 0.8)",
             Tcolor : "white",
         });
     const level = ["High", "Moderate", "Low"];

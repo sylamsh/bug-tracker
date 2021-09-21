@@ -19,7 +19,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#124e78',
+      main: 'rgba(24, 154, 180, 0.8)',
     },
     secondary: {
       main: '#f0f0c9',

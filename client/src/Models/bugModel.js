@@ -9,6 +9,15 @@ export default function bug(bug){
         this.assigned = bug.assigned;
         this.creator = bug.creator;
         this.time = bug.time;
+    } else {
+        this._id = Math.floor(Math.random()*900000000000);
+        this.name = '';
+        this.details = '';
+        this.steps = '';
+        this.version = '';
+        this.priority = '';
+        this.assigned = '';
+        this.creator = '';
+        this.time = new Date().getTime().toString();
     }
-    console.log("data pushed ", this);
 }

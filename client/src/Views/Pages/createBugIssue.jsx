@@ -1,6 +1,8 @@
-import * as React from 'react';
+import React,{useState} from 'react';
+import BugModel from '../../Models/bugModel';
 
 import Markdown from '../Components/markdown';
+import MDEditor from "@uiw/react-md-editor";
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -28,12 +30,28 @@ const priorities = [
 const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5"];
 
 export default function CreateForm(props) {
-  const [priority, setPriority] = React.useState(null);
-  const [version, setVersion] = React.useState(null);
-  const [assignPerson, setAssignPerson] = React.useState(null);
-  
+  const [bugObject, setBugOject] = useState(new BugModel(props.bug));
+
+  const changeInput = (e, value = '', name = '') => {
+    if(e !== undefined) {
+      setBugOject({
+        ...bugObject,
+        [e.target.name] : e.target.value,
+      })
+      console.log("from else id : " + bugObject._id);
+      console.log("from else name : " + e.target.name);
+      console.log("from else value : " + e.target.value);
+    } else {
+      setBugOject({
+        ...bugObject,
+        [name] : value,
+      })
+      console.log(value);
+      console.log(bugObject.details);
+    }
+  }
+
   const handlePrioritySelect = (e) => {
-    setPriority(e.target.value);
     props.ChangePriorityTheme(e.target.value);
   }
 
@@ -65,8 +83,9 @@ export default function CreateForm(props) {
                 select
                 variant="standard"
                 label="Priority"
-                value={priority}
-                onChange={handlePrioritySelect}
+                name="priority"
+                value={bugObject.priority}
+                onChange={(e) => {changeInput(e); handlePrioritySelect(e)}}
                 helperText=""
                 sx={{ width:"100%"}}
                 >
@@ -84,8 +103,9 @@ export default function CreateForm(props) {
                 select
                 variant="standard"
                 label="Version"
-                value={version}
-                onChange={(e) => {setVersion(e.target.value)}}
+                name="version"
+                value={bugObject.version}
+                onChange={changeInput}
                 helperText=""
                 sx={{ width:"100%"}}
                 >
@@ -103,8 +123,9 @@ export default function CreateForm(props) {
                 select
                 variant="standard"
                 label="Assign to"
-                value={assignPerson}
-                onChange={(e) => {setAssignPerson(e.target.value)}}
+                name="assigned"
+                value={bugObject.assigned}
+                onChange={changeInput}
                 helperText=""
                 sx={{ width:"100%"}}
                 >
@@ -118,7 +139,9 @@ export default function CreateForm(props) {
             
               <Grid item xs={12} sm={12}>
                 <TextField
-                  name="bugTitle"
+                  name="name"
+                  value={bugObject.name}
+                  onChange={changeInput}
                   required
                   fullWidth
                   id="bugTitle"
@@ -129,16 +152,28 @@ export default function CreateForm(props) {
               </Grid>
               
               <Grid item xs={12} >
-                <Typography component="form" sx={{mb:1, color:"primary.main"}} gutterBottom>
+                <Typography variant="subtitle1" sx={{mb:1, color:"primary.main"}} gutterBottom>
                     Steps to Reproduce the bug
                 </Typography>
-                <Markdown />
+                <MDEditor
+                  name="steps"
+                  value={bugObject.steps}
+                  onChange={(val)=>{
+                    setBugOject({
+                      ...bugObject,
+                      [props.name] : val
+                    })
+                    console.log(bugObject.steps);
+                  }}/>
               </Grid>
               <Grid item xs={12} >
-                <Typography component="form" sx={{mb:1, color:"primary.main"}} gutterBottom>
+                <Typography variant="subtitle1" sx={{mb:1, color:"primary.main"}} gutterBottom>
                     Details
                 </Typography>
-                <Markdown />
+                <Markdown 
+                  name="details"
+                  value={bugObject.details}
+                  changeInput={changeInput}/>
               </Grid>
             </Grid>
             <Grid container justifyContent="center">

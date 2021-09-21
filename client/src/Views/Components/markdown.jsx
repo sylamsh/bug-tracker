@@ -1,55 +1,43 @@
 import React, {useState} from "react";
 import MDEditor from "@uiw/react-md-editor";
-import katex from "katex";
-import "katex/dist/katex.css";
-// import "./styles.css";
 
-const mdKaTeX = `Woke up this mornin' 
+const mdKaTeX = `Woke up this mornin'
 
 \`print "Hello World!"\`
 `;
 
-export default function Markdown() {
-  const [value, setValue] = useState(mdKaTeX);
+// export default function Markdown(props) {
+//   const {value, changeInput} = props;
+//   const [text, setText] = useState(`# title`);
+//   return (
+//     <div className="container">
+//       <MDEditor height={200} value={text} onChange={setText} />
+//       {/* <input
+//         type="text"
+//         onChange={(e) => {
+//           setText(e.target.value);
+//         }}
+//       /> */}
+//       <div style={{ padding: "50px 0 0 0" }} />
+//       <MDEditor.Markdown source={text} />
+//     </div>
+//   );
+// }
+
+export default function Markdown(props) {
+  const {name, value, changeInput} = props;
+  const [text, setText] = useState(value);
+
   return (
     <div className="container">
       <MDEditor
-        value={value}
+        value={text}
         onChange={(val) => {
-          setValue(val);
-        }}
-        previewOptions={{
-          components: {
-            code: ({ inline, children, className, ...props }) => {
-              const txt = children[0] || "";
-              if (inline) {
-                if (typeof txt === "string" && /^\$\$(.*)\$\$/.test(txt)) {
-                  const html = katex.renderToString(
-                    txt.replace(/^\$\$(.*)\$\$/, "$1"),
-                    {
-                      throwOnError: false
-                    }
-                  );
-                  return <code dangerouslySetInnerHTML={{ __html: html }} />;
-                }
-                return <code>{txt}</code>;
-              }
-              if (
-                typeof txt === "string" &&
-                typeof className === "string" &&
-                /^language-katex/.test(className.toLocaleLowerCase())
-              ) {
-                const html = katex.renderToString(txt, {
-                  throwOnError: false
-                });
-                console.log("props", txt, className, props);
-                return <code dangerouslySetInnerHTML={{ __html: html }} />;
-              }
-              return <code className={String(className)}>{txt}</code>;
-            }
-          }
+          setText(val);
+          changeInput(undefined, val, name);
         }}
       />
     </div>
   );
 }
+
