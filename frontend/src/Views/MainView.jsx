@@ -9,6 +9,7 @@ import SideBar from './Components/sideBar';
 //Pages
 import ViewBugs from './Pages/viewBugs';
 import BugForm from './Pages/bugForm';
+import DashBoard from './Pages/dashBoard';
 
 //MUI
 import Box from '@mui/material/Box';
@@ -18,7 +19,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
-export default function DashBoard(){
+export default function Main(){
   const [priorityTheme, setPriorityTheme] = useState(null);
   const ChangePriorityTheme = (value) => {
     setPriorityTheme(value);
@@ -63,6 +64,7 @@ export default function DashBoard(){
           <Switch>
             <Route path="/viewBugs"><ViewBugs ChangePriorityTheme={ChangePriorityTheme} /></Route>
             <Route path="/form"><BugForm ChangePriorityTheme={ChangePriorityTheme} /></Route>
+            <Route path="/" exact><DashBoard /></Route>
           </Switch>
         </Box>
       </Box>
