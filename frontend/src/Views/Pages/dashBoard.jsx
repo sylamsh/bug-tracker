@@ -34,7 +34,7 @@ export default function DashBoard() {
     }
 
     return (
-    <Grid container justifyContent="evenly">
+    <Grid container justifyContent="center">
         <Typography  variant="h4" justifyContent="center" align="center" sx={{mb: 1}}>
             Active
         </Typography>

@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import BugModel from '../../Models/bugModel';
 
 import MDEditor from "@uiw/react-md-editor";
@@ -30,19 +30,6 @@ const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3",
 
 export default function CreateForm(props) {
   const [bugObject, setBugOject] = useState(new BugModel(props.bug));
-  const [stepsValue, setStepsValue] = useState("");
-  const [detailsValue, setDetailsValue] = useState("");
-  
-  useEffect(()=>{
-    setBugOject({
-      ...bugObject,
-      steps : stepsValue,
-      details : detailsValue,
-    })
-    console.log("steps : " + bugObject.steps);
-    console.log("details : " + bugObject.details);
-  },[stepsValue, detailsValue])
-
 
   const changeInput = (e) => {
     if(e !== undefined) {
@@ -50,9 +37,6 @@ export default function CreateForm(props) {
         ...bugObject,
         [e.target.name] : e.target.value,
       })
-      console.log("id : " + bugObject._id);
-      console.log("name : " + e.target.name);
-      console.log("value : " + e.target.value);
     } 
   }
 
@@ -82,10 +66,9 @@ export default function CreateForm(props) {
 
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}}>
             <Grid container spacing={2}>
-
+{/* PRIORITY */}
                <Grid item xs={12} sm={4}>
                 <TextField
-                id="outlined-select-currency"
                 select
                 variant="standard"
                 label="Priority"
@@ -102,10 +85,9 @@ export default function CreateForm(props) {
                 ))}
                 </TextField>
               </Grid>
-
+{/* VERSION */}
               <Grid item xs={12} sm={4}>
                 <TextField
-                id="outlined-select-currency"
                 select
                 variant="standard"
                 label="Version"
@@ -122,10 +104,9 @@ export default function CreateForm(props) {
                 ))}
                 </TextField>
               </Grid>
-
+{/* BUG ASSIGNED TO */}
               <Grid item xs={12} sm={4}>
                 <TextField
-                id="outlined-select-currency"
                 select
                 variant="standard"
                 label="Assign to"
@@ -142,7 +123,7 @@ export default function CreateForm(props) {
                 ))}
                 </TextField>
               </Grid>
-            
+{/* TITLE OF BUG */}
               <Grid item xs={12} sm={12}>
                 <TextField
                   name="name"
@@ -156,26 +137,36 @@ export default function CreateForm(props) {
                   variant="standard"
                 />
               </Grid>
-              
+{/* STEPS MD EDITOR */}
               <Grid item xs={12} >
                 <Typography variant="subtitle1" sx={{mb:1, color:"primary.main"}} gutterBottom>
                     Steps to Reproduce the bug
                 </Typography>
-                <MDEditor
+                  <MDEditor
                   name="steps"
-                  value={stepsValue}
-                  onChange={setStepsValue}/>
+                  value={bugObject.steps}
+                  onChange={(val) => {
+                    setBugOject(prevState => ({ 
+                          ...prevState,    
+                          steps: val       
+                  }));}}/>
               </Grid>
+{/* DETAILS MD EDITOR */}
               <Grid item xs={12} >
                 <Typography variant="subtitle1" sx={{mb:1, color:"primary.main"}} gutterBottom>
                     Details
                 </Typography>
                 <MDEditor
                   name="details"
-                  value={detailsValue}
-                  onChange={setDetailsValue}/>
+                  value={bugObject.details}
+                  onChange={(val) => {
+                    setBugOject(prevState => ({ 
+                          ...prevState,    
+                          steps: val       
+                  }));}}/>
               </Grid>
             </Grid>
+{/* SUBMIT BUTTON */}
             <Grid container justifyContent="center">
                 <Button
                 variant="contained"
