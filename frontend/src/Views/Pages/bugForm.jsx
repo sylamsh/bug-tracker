@@ -1,7 +1,6 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import BugModel from '../../Models/bugModel';
 
-import Markdown from '../Components/markdown';
 import MDEditor from "@uiw/react-md-editor";
 
 import Button from '@mui/material/Button';
@@ -31,24 +30,30 @@ const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3",
 
 export default function CreateForm(props) {
   const [bugObject, setBugOject] = useState(new BugModel(props.bug));
+  const [stepsValue, setStepsValue] = useState("");
+  const [detailsValue, setDetailsValue] = useState("");
+  
+  useEffect(()=>{
+    setBugOject({
+      ...bugObject,
+      steps : stepsValue,
+      details : detailsValue,
+    })
+    console.log("steps : " + bugObject.steps);
+    console.log("details : " + bugObject.details);
+  },[stepsValue, detailsValue])
 
-  const changeInput = (e, value = '', name = '') => {
+
+  const changeInput = (e) => {
     if(e !== undefined) {
       setBugOject({
         ...bugObject,
         [e.target.name] : e.target.value,
       })
-      console.log("from else id : " + bugObject._id);
-      console.log("from else name : " + e.target.name);
-      console.log("from else value : " + e.target.value);
-    } else {
-      setBugOject({
-        ...bugObject,
-        [name] : value,
-      })
-      console.log(value);
-      console.log(bugObject.details);
-    }
+      console.log("id : " + bugObject._id);
+      console.log("name : " + e.target.name);
+      console.log("value : " + e.target.value);
+    } 
   }
 
   const handlePrioritySelect = (e) => {
@@ -57,6 +62,7 @@ export default function CreateForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(bugObject);
   };
 
   return (
@@ -97,7 +103,7 @@ export default function CreateForm(props) {
                 </TextField>
               </Grid>
 
-               <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                 id="outlined-select-currency"
                 select
@@ -109,15 +115,15 @@ export default function CreateForm(props) {
                 helperText=""
                 sx={{ width:"100%"}}
                 >
-                {versions.map((version, key) => (
-                    <MenuItem key={key} value={version}>
-                    {version}
-                    </MenuItem>
+                  {versions.map((version, key) => (
+                      <MenuItem key={key} value={version}>
+                      {version}
+                      </MenuItem>
                 ))}
                 </TextField>
               </Grid>
 
-               <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                 id="outlined-select-currency"
                 select
@@ -129,10 +135,10 @@ export default function CreateForm(props) {
                 helperText=""
                 sx={{ width:"100%"}}
                 >
-                {priorities.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                    </MenuItem>
+                  {priorities.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                      </MenuItem>
                 ))}
                 </TextField>
               </Grid>
@@ -157,30 +163,25 @@ export default function CreateForm(props) {
                 </Typography>
                 <MDEditor
                   name="steps"
-                  value={bugObject.steps}
-                  onChange={(val)=>{
-                    setBugOject({
-                      ...bugObject,
-                      [props.name] : val
-                    })
-                    console.log(bugObject.steps);
-                  }}/>
+                  value={stepsValue}
+                  onChange={setStepsValue}/>
               </Grid>
               <Grid item xs={12} >
                 <Typography variant="subtitle1" sx={{mb:1, color:"primary.main"}} gutterBottom>
                     Details
                 </Typography>
-                <Markdown 
+                <MDEditor
                   name="details"
-                  value={bugObject.details}
-                  changeInput={changeInput}/>
+                  value={detailsValue}
+                  onChange={setDetailsValue}/>
               </Grid>
             </Grid>
             <Grid container justifyContent="center">
                 <Button
                 variant="contained"
+                type="submit"
                 sx={{ mt: 2, mb: 2, minWidth:"33%", minHeight:"10%"}}>
-                Submit
+                    Submit
                 </Button>
             </Grid>
           </Box>

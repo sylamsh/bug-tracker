@@ -45,3 +45,21 @@ export default function Bugcard(props) {
     </Box>
   );
 }
+
+// export default function Markdown(props) {
+//   const {value, changeInput} = props;
+//   const [text, setText] = useState(`# title`);
+//   return (
+//     <div className="container">
+//       <MDEditor height={200} value={text} onChange={setText} />
+//       {/* <input
+//         type="text"
+//         onChange={(e) => {
+//           setText(e.target.value);
+//         }}
+//       /> */}
+//       <div style={{ padding: "50px 0 0 0" }} />
+//       <MDEditor.Markdown source={text} />
+//     </div>
+//   );
+// }

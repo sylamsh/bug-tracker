@@ -18,6 +18,6 @@ export default function bug(bug){
         this.priority = '';
         this.assigned = '';
         this.creator = '';
-        this.time = new Date().getTime().toString();
+        this.time = new Date().toString();
     }
 }
