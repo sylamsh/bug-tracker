@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from "../../Controllers/Redux/authSlice"
+// import { signOut } from "../../Controllers/Redux/authSlice"
 import './sideBar.css'
 
 //MUI
@@ -16,11 +16,11 @@ import ListItem from '@mui/material/ListItem';
 const drawerWidth = 240;
 
 export default function SideBar(props){
-    const dispatch = useDispatch();
-    const { auth } = useSelector(state => state);
-    const SignOut = () =>{
-        dispatch(signOut());
-    }
+    // const dispatch = useDispatch();
+    // const { auth } = useSelector(state => state);
+    // const SignOut = () =>{
+    //     dispatch(signOut());
+    // }
 
     return (
        <Drawer
@@ -37,9 +37,11 @@ export default function SideBar(props){
               <ListItem>
                 <Link to='/' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Dash Board</Link>
               </ListItem>
-              {auth.admin && <ListItem>
+              {/* {auth.admin &&  */}
+              <ListItem>
                 <Link to='/form' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Create/Edit</Link>
-              </ListItem>}
+              </ListItem>
+              {/* } */}
               <ListItem>
                 <Link to='/viewBugs' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>View Bugs</Link>
               </ListItem>
@@ -47,7 +49,7 @@ export default function SideBar(props){
           <Divider />
             <List>
             <ListItem>
-                <Button
+                {/* <Button
                   fullWidth
                   variant="contained"
                   sx={{ mt: 1, mb: 1}}
@@ -55,7 +57,7 @@ export default function SideBar(props){
                   // style={{color : "rgba(240, 240, 201, 1)"}}
                   onClick={SignOut}>
                 Logout
-                </Button>
+                </Button> */}
               </ListItem>
           </List>
         </Box>

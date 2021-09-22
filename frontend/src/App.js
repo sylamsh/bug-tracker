@@ -5,13 +5,13 @@ import Login from "./Views/Login/login"
 import MainView from "./Views/MainView";
 
 function App() {
-  const {auth} = useSelector(state => state);
+  // const {auth} = useSelector(state => state);
   return (
     <Router>
-      {!auth.LoggedIn ? <Login /> : 
+      {/* {!auth.LoggedIn ? <Login /> :  */}
       <>
         <MainView />
-      </>}
+      </>
     </Router>
   );
 }

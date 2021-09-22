@@ -1,10 +1,11 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {useDispatch} from "react-redux";
 
 import PriorityController from '../../Controllers/priorityController';
 import {markResolved} from '../../Controllers/Redux/bugSlice';
 
 import EditPanel from './editPanel';
+import MDEditor from "@uiw/react-md-editor";
 
 //MUI
 import Box from '@mui/material/Box';
@@ -19,9 +20,9 @@ const OutlinedCard = (props) => {
     const dispatch = useDispatch();
     const {name, details, steps, version, priority, assigned, creator, time} = props.bug;
     const {level, BGcolor, Tcolor} = PriorityController(priority);
-    const collapse = () => {
-        props.collapse(props.bug._id);
-    };
+    // const collapse = () => {
+    //     props.collapse();
+    // };
     const editClicked = () => {}
     const deleteClicked = () => {}
 
@@ -50,23 +51,23 @@ const OutlinedCard = (props) => {
         <Typography variant="h5" color="text.primary" style={{fontWeight:"bold"}} align="right">
         {version}
        </Typography>
-      <Typography variant="h5">
+      <Typography variant="h5" color={BGcolor}>
         Steps
       </Typography>
       <Typography sx={{ mb: 1.5 }} variant="body1">
-        {steps}
+        <MDEditor.Markdown source={steps} />
       </Typography>
-      <Typography variant="h5">
+      <Typography variant="h5" color={BGcolor}>
         Details
       </Typography>
       <Typography variant="body2">
-        {details}
+        <MDEditor.Markdown source={details} />
       </Typography>
     </CardContent>
     <CardActions>
       <Button variant="contained" style={{margin:"0 auto"}}>Assign to</Button>
       <Button variant="contained" color="success" style={{margin:"0 auto"}} onClick={()=>{dispatch(markResolved())}}>Resolved!</Button>
-      <Button variant="outlined" style={{margin:"0 auto"}} onClick={collapse}>collapse</Button>
+      <Button variant="outlined" style={{margin:"0 auto"}} onClick={props.collapse}>collapse</Button>
     </CardActions>
   </React.Fragment>
 };

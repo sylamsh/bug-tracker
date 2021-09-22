@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 const OutlinedCard = (props) => {
-    const {name, version, details} = props.bug;
+    const {name, version, creator, assigned} = props.bug;
 
     return  <React.Fragment>
     <CardContent style={{color : props.Tcolor}}>
@@ -21,8 +21,11 @@ const OutlinedCard = (props) => {
       <Typography sx={{ mb: 1.5 }} color="text.primary">
         {version}
       </Typography>
-      <Typography variant="body2">
-        {details.substring(0, 200)}...
+      <Typography variant="body2" align="right">
+        created by {creator}
+      </Typography>
+      <Typography variant="body2" align="right">
+        assigned to {assigned}
       </Typography>
     </CardContent>
     {/* <CardActions>

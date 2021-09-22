@@ -14,7 +14,7 @@ export default function DashBoard() {
     let highCount = 0
     let moderateCount = 0
     let lowCount = 0
-    if (bugs != undefined) {
+    if (bugs !== undefined) {
         highCount = filterBugs(1);
         moderateCount = filterBugs(2);
         lowCount = filterBugs(3);

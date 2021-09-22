@@ -1,6 +1,9 @@
-import React,{useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getBugs} from  "../../Controllers/Redux/bugSlice";
+import React,{ useState } from "react";
+import { useSelector } from "react-redux";
+// import { getBugs } from  "../../Controllers/Redux/bugSlice";
+// import { getBugs } from "../../Controllers/actions/bugs";
+
+//Components
 import BugCard from "../Components/bugCard";
 import BugView from "../Components/bugView";
 
@@ -18,27 +21,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewBugs(props){
-    const [displayBug, setDisplayBug] = useState({
-      _id : null,
-    });
-    const dispatch = useDispatch();
-    const {bugs} = useSelector(state => state);
-    useEffect(() => {
-        dispatch(getBugs());
-    }, [bugs.length < 1])
+    const bugs = useSelector((state) => state.bugs);
 
+    console.log(bugs);
+
+    // Theme Controller
+    const [displayBug, setDisplayBug] = useState(null);
     function BugClicked(_id, priority) {
-      setDisplayBug({
-        _id : _id,
-      });
+      setDisplayBug(_id);
       props.ChangePriorityTheme(priority);
       console.log("ya clicked ", _id);
     }
-
-    function CollapseView(_id) {
-      setDisplayBug({
-        _id: null
-      })
+    function CollapseView() {
+      setDisplayBug(null);
       props.ChangePriorityTheme(null);
     }
     
@@ -48,12 +43,12 @@ export default function ViewBugs(props){
         <Grid container justifyContent="space-between" spacing={2}>
             {bugs.map( (bug, key) => {
                 return (
-                <Grid key={key} item>
-                  <Grid item xs={12} sm={12}>
-                    {bug._id !== displayBug._id && <BugCard bug={bug} clicked={BugClicked}/>}
+                <Grid key={key} item xs={12} sm={6}>
+                  <Grid item >
+                    {bug._id !== displayBug && <BugCard bug={bug} clicked={BugClicked}/>}
                   </Grid>
-                  <Grid item xs={12}> 
-                    {bug._id === displayBug._id && <BugView bug={bug} collapse={CollapseView}/>}
+                  <Grid item > 
+                    {bug._id === displayBug && <BugView bug={bug} collapse={CollapseView}/>}
                   </Grid>
                 </Grid>
                 );

@@ -1,8 +1,16 @@
-import React,{useState} from 'react';
+import React,{ useState } from 'react';
+
+//Redux
+import { useDispatch } from 'react-redux';
+import { createBug } from '../../Controllers/actions/bugs';
+
+//BugObject for the state
 import BugModel from '../../Models/bugModel';
 
+//MDEditor
 import MDEditor from "@uiw/react-md-editor";
 
+//MUI
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -30,14 +38,13 @@ const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3",
 
 export default function CreateForm(props) {
   const [bugObject, setBugOject] = useState(new BugModel(props.bug));
+  const dispatch = useDispatch();
 
   const changeInput = (e) => {
-    if(e !== undefined) {
-      setBugOject({
-        ...bugObject,
-        [e.target.name] : e.target.value,
-      })
-    } 
+    setBugOject({
+      ...bugObject,
+      [e.target.name] : e.target.value,
+    }) 
   }
 
   const handlePrioritySelect = (e) => {
@@ -47,6 +54,7 @@ export default function CreateForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(bugObject);
+    dispatch(createBug({...bugObject}));
   };
 
   return (
@@ -162,7 +170,7 @@ export default function CreateForm(props) {
                   onChange={(val) => {
                     setBugOject(prevState => ({ 
                           ...prevState,    
-                          steps: val       
+                          details: val       
                   }));}}/>
               </Grid>
             </Grid>

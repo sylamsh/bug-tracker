@@ -1,6 +1,10 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {Switch, Route} from "react-router-dom";
 import PriorityController from '../Controllers/priorityController';
+
+//Redux
+import { useDispatch } from "react-redux";
+import { getBugs } from "../Controllers/actions/bugs";
 
 //Components
 import AppBar from "./Components/appBar";
@@ -17,9 +21,12 @@ import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
-
 export default function Main(){
+  const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getBugs());
+    }, [dispatch]);
+
   const [priorityTheme, setPriorityTheme] = useState(null);
   const ChangePriorityTheme = (value) => {
     setPriorityTheme(value);

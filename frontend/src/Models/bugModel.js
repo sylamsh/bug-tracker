@@ -1,6 +1,6 @@
 export default function bug(bug){
     if(bug !== undefined) {
-        this._id = bug._id;
+        // this._id = bug._id;
         this.name = bug.name;
         this.details = bug.details;
         this.steps = bug.steps;
@@ -8,9 +8,8 @@ export default function bug(bug){
         this.priority = bug.priority;
         this.assigned = bug.assigned;
         this.creator = bug.creator;
-        this.time = bug.time;
     } else {
-        this._id = Math.floor(Math.random()*900000000000);
+        // this._id = Math.floor(Math.random()*900000000000);
         this.name = '';
         this.details = '';
         this.steps = '';
@@ -18,6 +17,5 @@ export default function bug(bug){
         this.priority = '';
         this.assigned = '';
         this.creator = '';
-        this.time = new Date().toString();
     }
 }
