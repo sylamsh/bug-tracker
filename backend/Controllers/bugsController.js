@@ -4,7 +4,6 @@ import Bug from '../Model/BugModel.js'
 export const getBugs = async (req, res) => {
     try {
         const bugs = await Bug.find();
-        console.log(bugs)
         res.status(200).json(bugs)
     } catch(error) {
         res.status(400).json({ message : error.message })
@@ -22,11 +21,19 @@ export const createBug = async (req, res) => {
     }
 }
 
-export const  updateBug = async (req, res) => {
+export const updateBug = async (req, res) => {
     const { id: _id } = req.params
     const bug = req.body
     if(!mongoose.Types.ObjectId.isValid(_id))
         return res.status(404).send("No BugIssue found!")
     const updatedBug = await Bug.findByIdAndUpdate(_id, bug, {new: true})
     res.json(updatedBug);
+}
+
+export const deleteBug = async (req, res) => {
+    const {id: _id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send("No BugIssue found!")
+    await Bug.findByIdAndRemove(_id);
+    res.json({ message: "Bug Issue Deleted successfully"});
 }

@@ -27,3 +27,12 @@ export const updateBug = (id, bug) => async (dispatch) => {
         console.log(error.message)
     }
 }
+
+export const deleteBug = (id) => async (dispatch) => {
+    try {
+        await api.deleteBug(id)
+        dispatch({ type: 'DELETE', payload: id})
+    } catch(error) {
+        console.log(error)
+    }
+}

@@ -1,11 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from "react-redux";
 import moment from 'moment';
+import PriorityController from '../../Controllers/priorityController';
 
 //Redux
-import PriorityController from '../../Controllers/priorityController';
-import {markResolved} from '../../Controllers/Redux/bugSlice';
+import { useDispatch } from "react-redux";
+import { deleteBug } from '../../Controllers/actions/bugs';
+import { markResolved } from '../../Controllers/Redux/bugSlice';
 
 //Components
 import EditPanel from './editPanel';
@@ -31,7 +32,10 @@ const OutlinedCard = ({bug, setCurrentId, collapse}) => {
       browserHistory.push('/form');
       console.log(_id);
     }
-    const deleteClicked = () => {}
+    const deleteClicked = () => {
+      dispatch(deleteBug(_id))
+      collapse()
+    }
 
     return  <React.Fragment>
     <CardHeader
