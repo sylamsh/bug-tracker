@@ -22,10 +22,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function Main(){
+  const [currentId, setCurrentId] = useState(null);
+
   const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getBugs());
-    }, [dispatch]);
+  useEffect(() => {
+      dispatch(getBugs());
+  }, [dispatch, currentId]);
 
   const [priorityTheme, setPriorityTheme] = useState(null);
   const ChangePriorityTheme = (value) => {
@@ -62,15 +64,20 @@ export default function Main(){
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar Tcolor={Tcolor}/>
-        <SideBar ChangePriorityTheme={ChangePriorityTheme}/>
+        <SideBar  ChangePriorityTheme={ChangePriorityTheme} 
+                  setCurrentId={setCurrentId}/>
         <Box
           component="main"
-          sx={{ flexGrow: 1,  p: 3 }}
-        >
+          sx={{ flexGrow: 1,  p: 3 }}>
           <Toolbar />
           <Switch>
-            <Route path="/viewBugs"><ViewBugs ChangePriorityTheme={ChangePriorityTheme} /></Route>
-            <Route path="/form"><BugForm ChangePriorityTheme={ChangePriorityTheme} /></Route>
+            <Route path="/viewBugs"><ViewBugs ChangePriorityTheme={ChangePriorityTheme}
+                                              setCurrentId={setCurrentId}/>
+            </Route>
+            <Route path="/form"><BugForm  ChangePriorityTheme={ChangePriorityTheme} 
+                                          currentId={currentId}
+                                          setCurrentId={setCurrentId}/>
+            </Route>
             <Route path="/" exact><DashBoard /></Route>
           </Switch>
         </Box>

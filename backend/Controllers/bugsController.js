@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import Bug from '../Model/BugModel.js'
 
 export const getBugs = async (req, res) => {
@@ -19,4 +20,13 @@ export const createBug = async (req, res) => {
     } catch(error) {
         res.status(409).json({ message : error.message })
     }
+}
+
+export const  updateBug = async (req, res) => {
+    const { id: _id } = req.params
+    const bug = req.body
+    if(!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send("No BugIssue found!")
+    const updatedBug = await Bug.findByIdAndUpdate(_id, bug, {new: true})
+    res.json(updatedBug);
 }

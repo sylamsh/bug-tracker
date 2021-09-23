@@ -1,8 +1,9 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 //Redux
-import { useDispatch } from 'react-redux';
-import { createBug } from '../../Controllers/actions/bugs';
+import { useDispatch, useSelector } from 'react-redux';
+import { createBug, updateBug } from '../../Controllers/actions/bugs';
 
 //BugObject for the state
 import BugModel from '../../Models/bugModel';
@@ -36,9 +37,13 @@ const priorities = [
 ];
 const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5"];
 
-export default function CreateForm(props) {
-  const [bugObject, setBugOject] = useState(new BugModel(props.bug));
-  const dispatch = useDispatch();
+export default function CreateForm({ currentId, setCurrentId, ChangePriorityTheme }) {
+  const [bugObject, setBugOject] = useState(new BugModel());
+  const bug = useSelector((state) => currentId ? state.bugs.find((b) => b._id === currentId) : null);
+  
+  useEffect(() => {
+    if(bug) setBugOject(bug);
+  },[bug])
 
   const changeInput = (e) => {
     setBugOject({
@@ -46,15 +51,23 @@ export default function CreateForm(props) {
       [e.target.name] : e.target.value,
     }) 
   }
-
+  
   const handlePrioritySelect = (e) => {
-    props.ChangePriorityTheme(e.target.value);
+    ChangePriorityTheme(e.target.value);
   }
-
+  
+  const browserHistory = useHistory();
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(bugObject);
-    dispatch(createBug({...bugObject}));
+    if(currentId !== null) {
+      dispatch(updateBug(currentId, bugObject));
+    } else {
+      dispatch(createBug({...bugObject}));
+    }
+    browserHistory.push('/viewBugs');
+    setCurrentId(null);
+    ChangePriorityTheme(null);
   };
 
   return (
@@ -69,7 +82,7 @@ export default function CreateForm(props) {
           }}
         >
           <Typography component="h1" variant="h5">
-            Issue a Bug
+            Report Bug
           </Typography>
 
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}}>
@@ -77,20 +90,19 @@ export default function CreateForm(props) {
 {/* PRIORITY */}
                <Grid item xs={12} sm={4}>
                 <TextField
-                select
-                variant="standard"
-                label="Priority"
-                name="priority"
-                value={bugObject.priority}
-                onChange={(e) => {changeInput(e); handlePrioritySelect(e)}}
-                helperText=""
-                sx={{ width:"100%"}}
-                >
-                {priorities.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                    </MenuItem>
-                ))}
+                  select
+                  variant="standard"
+                  label="Priority"
+                  name="priority"
+                  value={bugObject.priority}
+                  onChange={(e) => {changeInput(e); handlePrioritySelect(e)}}
+                  helperText=""
+                  sx={{ width:"100%"}}>
+                    {priorities.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                    ))}
                 </TextField>
               </Grid>
 {/* VERSION */}
@@ -103,32 +115,31 @@ export default function CreateForm(props) {
                 value={bugObject.version}
                 onChange={changeInput}
                 helperText=""
-                sx={{ width:"100%"}}
-                >
+                sx={{ width:"100%"}}>
                   {versions.map((version, key) => (
-                      <MenuItem key={key} value={version}>
+                    <MenuItem key={key} value={version}>
                       {version}
-                      </MenuItem>
+                    </MenuItem>
                 ))}
                 </TextField>
               </Grid>
 {/* BUG ASSIGNED TO */}
               <Grid item xs={12} sm={4}>
                 <TextField
-                select
-                variant="standard"
-                label="Assign to"
-                name="assigned"
-                value={bugObject.assigned}
-                onChange={changeInput}
-                helperText=""
-                sx={{ width:"100%"}}
-                >
-                  {priorities.map((option) => (
+                  select
+                  variant="standard"
+                  label="Assign to"
+                  name="assigned"
+                  value={bugObject.assigned}
+                  onChange={changeInput}
+                  helperText=""
+                  sx={{ width:"100%"}}
+                  >
+                    {priorities.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
-                      {option.label}
+                        {option.label}
                       </MenuItem>
-                ))}
+                  ))}
                 </TextField>
               </Grid>
 {/* TITLE OF BUG */}
@@ -140,46 +151,45 @@ export default function CreateForm(props) {
                   required
                   fullWidth
                   id="bugTitle"
-                  label="Bug Title"
+                  label="Bug Issue Title"
                   autoFocus
-                  variant="standard"
-                />
+                  variant="standard"/>
               </Grid>
 {/* STEPS MD EDITOR */}
               <Grid item xs={12} >
                 <Typography variant="subtitle1" sx={{mb:1, color:"primary.main"}} gutterBottom>
-                    Steps to Reproduce the bug
+                    Steps to Reproduce the Bug
                 </Typography>
-                  <MDEditor
-                  name="steps"
-                  value={bugObject.steps}
-                  onChange={(val) => {
-                    setBugOject(prevState => ({ 
-                          ...prevState,    
-                          steps: val       
-                  }));}}/>
+                <MDEditor name="steps"
+                          value={bugObject.steps}
+                          onChange={(val) => {
+                            setBugOject(prevState => ({ 
+                                  ...prevState,    
+                                  steps: val       
+                            }));
+                          }}/>
               </Grid>
 {/* DETAILS MD EDITOR */}
               <Grid item xs={12} >
                 <Typography variant="subtitle1" sx={{mb:1, color:"primary.main"}} gutterBottom>
                     Details
                 </Typography>
-                <MDEditor
-                  name="details"
-                  value={bugObject.details}
-                  onChange={(val) => {
-                    setBugOject(prevState => ({ 
-                          ...prevState,    
-                          details: val       
-                  }));}}/>
+                <MDEditor name="details"
+                          value={bugObject.details}
+                          onChange={(val) => {
+                            setBugOject(prevState => ({ 
+                                  ...prevState,    
+                                  details: val       
+                            }));
+                          }}/>
               </Grid>
             </Grid>
 {/* SUBMIT BUTTON */}
             <Grid container justifyContent="center">
                 <Button
-                variant="contained"
-                type="submit"
-                sx={{ mt: 2, mb: 2, minWidth:"33%", minHeight:"10%"}}>
+                  variant="contained"
+                  type="submit"
+                  sx={{ mt: 2, mb: 2, minWidth:"33%", minHeight:"10%"}}>
                     Submit
                 </Button>
             </Grid>

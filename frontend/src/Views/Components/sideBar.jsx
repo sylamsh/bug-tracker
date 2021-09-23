@@ -15,12 +15,16 @@ import ListItem from '@mui/material/ListItem';
 
 const drawerWidth = 240;
 
-export default function SideBar(props){
+export default function SideBar({ChangePriorityTheme, setCurrentId}){
     // const dispatch = useDispatch();
     // const { auth } = useSelector(state => state);
     // const SignOut = () =>{
     //     dispatch(signOut());
     // }
+    const clickedOptions = () => {
+      ChangePriorityTheme(null);
+      setCurrentId(null);
+    }
 
     return (
        <Drawer
@@ -35,15 +39,15 @@ export default function SideBar(props){
         <Box sx={{ overflow: 'auto' }}>
             <List>
               <ListItem>
-                <Link to='/' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Dash Board</Link>
+                <Link to='/' className="side-link" onClick={clickedOptions}>DashBoard</Link>
               </ListItem>
               {/* {auth.admin &&  */}
               <ListItem>
-                <Link to='/form' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>Create/Edit</Link>
+                <Link to='/form' className="side-link" onClick={clickedOptions}>Create Bug Issue</Link>
               </ListItem>
               {/* } */}
               <ListItem>
-                <Link to='/viewBugs' className="side-link" onClick={() => props.ChangePriorityTheme(null)}>View Bugs</Link>
+                <Link to='/viewBugs' className="side-link" onClick={clickedOptions}>View Bugs</Link>
               </ListItem>
           </List>
           <Divider />

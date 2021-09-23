@@ -9,6 +9,7 @@ import BugView from "../Components/bugView";
 
 //MUI
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,40 +21,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewBugs(props){
+export default function ViewBugs({ChangePriorityTheme, setCurrentId}){
     const bugs = useSelector((state) => state.bugs);
-
     console.log(bugs);
 
     // Theme Controller
     const [displayBug, setDisplayBug] = useState(null);
     function BugClicked(_id, priority) {
       setDisplayBug(_id);
-      props.ChangePriorityTheme(priority);
+      ChangePriorityTheme(priority);
       console.log("ya clicked ", _id);
     }
     function CollapseView() {
       setDisplayBug(null);
-      props.ChangePriorityTheme(null);
+      ChangePriorityTheme(null);
     }
     
     const classes = useStyles();
     return( 
-    <Grid container className={classes.root} spacing={2}>
-        <Grid container justifyContent="space-between" spacing={2}>
-            {bugs.map( (bug, key) => {
-                return (
-                <Grid key={key} item xs={12} sm={6}>
-                  <Grid item >
-                    {bug._id !== displayBug && <BugCard bug={bug} clicked={BugClicked}/>}
+      !bugs.length ? 
+        <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"80vh"}}>
+          <CircularProgress sx={{margin : "0 auto"}}/> 
+        </Grid> :
+      
+        <Grid container className={classes.root} spacing={2}>
+          <Grid container justifyContent="space-between" spacing={2}>
+              {bugs.map( (bug, key) => {
+                  return (
+                  <Grid key={key} item xs={12} sm={6}>
+                    <Grid item >
+                      {bug._id !== displayBug && <BugCard bug={bug} clicked={BugClicked}/>}
+                    </Grid>
+                    <Grid item > 
+                      {bug._id === displayBug && <BugView bug={bug} collapse={CollapseView} setCurrentId={setCurrentId}/>}
+                    </Grid>
                   </Grid>
-                  <Grid item > 
-                    {bug._id === displayBug && <BugView bug={bug} collapse={CollapseView}/>}
-                  </Grid>
-                </Grid>
                 );
               })}
+          </Grid>
         </Grid>
-    </Grid>
     )
 }
