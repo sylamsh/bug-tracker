@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PriorityController from '../../Controllers/priorityController';
 
 //MUI
@@ -8,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 const OutlinedCard = (props) => {
-    const {name, version, creator, assigned} = props.bug;
+    const {name, version, creator, assigned, createdOn} = props.bug;
 
     return  <React.Fragment>
     <CardContent style={{color : props.Tcolor}}>
@@ -21,23 +22,25 @@ const OutlinedCard = (props) => {
       <Typography sx={{ mb: 1.5 }} color="text.primary">
         {version}
       </Typography>
-      <Typography variant="body2" align="right">
+      <Typography variant="body2">
         created by {creator}
+        <Typography variant="inline" sx={{float: "right"}}>
+          {moment(createdOn).fromNow()}
+        </Typography>
       </Typography>
-      <Typography variant="body2" align="right">
+      {/* <Typography variant="body2">
         assigned to {assigned}
-      </Typography>
+      </Typography> */}
     </CardContent>
-    {/* <CardActions>
-      <Button size="small" style={{color : "rgba(18, 78, 120, 1)"}}>Read More</Button>
-    </CardActions> */}
   </React.Fragment>
 };
 
 export default function Bugcard(props) {
-    const {level, BGcolor, Tcolor} = PriorityController(props.bug.priority);
+    const priorityTheme = props.bug.isResolved ? (3 + parseInt(props.bug.priority)) : props.bug.priority;
+    const {level, BGcolor, Tcolor} = PriorityController(priorityTheme);
+    console.log(level, BGcolor, Tcolor)
     const Clicked = () => {
-        props.clicked(props.bug._id, props.bug.priority);
+        props.clicked(props.bug._id, priorityTheme);
     }
     
     return (
@@ -48,21 +51,3 @@ export default function Bugcard(props) {
     </Box>
   );
 }
-
-// export default function Markdown(props) {
-//   const {value, changeInput} = props;
-//   const [text, setText] = useState(`# title`);
-//   return (
-//     <div className="container">
-//       <MDEditor height={200} value={text} onChange={setText} />
-//       {/* <input
-//         type="text"
-//         onChange={(e) => {
-//           setText(e.target.value);
-//         }}
-//       /> */}
-//       <div style={{ padding: "50px 0 0 0" }} />
-//       <MDEditor.Markdown source={text} />
-//     </div>
-//   );
-// }

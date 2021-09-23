@@ -23,14 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewBugs({ChangePriorityTheme, setCurrentId}){
     const bugs = useSelector((state) => state.bugs);
-    console.log(bugs);
 
     // Theme Controller
     const [displayBug, setDisplayBug] = useState(null);
     function BugClicked(_id, priority) {
       setDisplayBug(_id);
       ChangePriorityTheme(priority);
-      console.log("ya clicked ", _id);
     }
     function CollapseView() {
       setDisplayBug(null);
@@ -42,23 +40,18 @@ export default function ViewBugs({ChangePriorityTheme, setCurrentId}){
       !bugs.length ? 
         <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"80vh"}}>
           <CircularProgress sx={{margin : "0 auto"}}/> 
-        </Grid> :
-      
-        <Grid container className={classes.root} spacing={2}>
-          <Grid container justifyContent="space-between" spacing={2}>
+        </Grid> : <Grid container justifyContent="space-between" className={classes.root} spacing={2}>
               {bugs.map( (bug, key) => {
                   return (
-                  <Grid key={key} item xs={12} sm={6}>
-                    <Grid item >
+                  <Grid item key={key} sm={12} md={6}>
                       {bug._id !== displayBug && <BugCard bug={bug} clicked={BugClicked}/>}
-                    </Grid>
-                    <Grid item > 
-                      {bug._id === displayBug && <BugView bug={bug} collapse={CollapseView} setCurrentId={setCurrentId}/>}
-                    </Grid>
+                      {bug._id === displayBug && <BugView bug={bug} 
+                                                          collapse={CollapseView} 
+                                                          setCurrentId={setCurrentId}
+                                                          ChangePriorityTheme={ChangePriorityTheme}/>}
                   </Grid>
                 );
               })}
           </Grid>
-        </Grid>
     )
 }

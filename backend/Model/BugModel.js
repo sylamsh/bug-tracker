@@ -8,10 +8,15 @@ const BugSchema = mongoose.Schema({
     details : String,
     creator : String,
     assigned : String,
+    isResolved : {
+        type : Boolean,
+        default : false,
+    },
     createdOn : {
         type : Date,
         default : new Date(),
     }
 })
+
 const Bug = mongoose.model('Bug', BugSchema)
 export default Bug

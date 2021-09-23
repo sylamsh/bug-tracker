@@ -37,3 +37,12 @@ export const deleteBug = async (req, res) => {
     await Bug.findByIdAndRemove(_id);
     res.json({ message: "Bug Issue Deleted successfully"});
 }
+
+export const resolveBug = async (req, res) => {
+    const {id: _id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send("No BugIssue found!")
+    const bug = await Bug.findById(_id)
+    const updatedBug = await Bug.findByIdAndUpdate(_id, { isResolved: !bug.isResolved }, { new: true })
+    res.json(updatedBug)
+}

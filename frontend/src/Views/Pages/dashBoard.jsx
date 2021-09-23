@@ -1,73 +1,62 @@
-import React,{useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
-import {getBugs} from '../../Controllers/Redux/bugSlice';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+//Components
 import NumBugsCard from '../Components/DashBoard/numBugsCard';
 
-
+//MUI
 import Grid from '@material-ui/core/Grid';
 import Typography from '@mui/material/Typography';
 
 export default function DashBoard() {
-    const dispatch = useDispatch()
-    const bugs = useSelector(state=>state.bugs)
-    let highCount = 0
-    let moderateCount = 0
-    let lowCount = 0
+    const bugs = useSelector((state) => state.bugs);
+
+    let Resolvedcounts = []
+    let Unresolvedcounts = []
     if (bugs !== undefined) {
-        highCount = filterBugs(1);
-        moderateCount = filterBugs(2);
-        lowCount = filterBugs(3);
+        for(let i = 0; i<3; i++) {
+            Resolvedcounts.push(filterBugs(i+1, false))
+        }
+        for(let i = 0; i<3; i++) {
+            Unresolvedcounts.push(filterBugs(i+1, true))
+        }
     }
 
-    function filterBugs(priority) {
-        return bugs.filter((bug) => {return bug.priority === priority})
+    function filterBugs(priority, isResolved) {
+        let priorityBugs = bugs.filter((bug) => {
+            return parseInt(bug.priority) === priority && bug.isResolved === isResolved
+        })
+        return priorityBugs.length
     }
-
-    useEffect(() => {
-        dispatch(getBugs())
-    }, [bugs === undefined])
-
     const browserHistory = useHistory()
     function redirect() {
         browserHistory.push('/viewbugs')
     }
 
     return (
-    <Grid container justifyContent="center">
-        <Typography  variant="h4" justifyContent="center" align="center" sx={{mb: 1}}>
+    <>
+        <Typography  variant="h4" justifyContent="center" sx={{mt:3, mb: 1}}>
             Active
         </Typography>
-        <Grid container spacing={2} sx={{mt: "20%"}}>
-            <Grid container justifyContent="space-between" spacing={0}>
-                <Grid item xs={12} sm={4}>
-                    <NumBugsCard priority={1} count={highCount.length} clicked={redirect}/>
+        <Grid container justifyContent="space-between" spacing={0} sx={{mt: "20%"}}>
+            {Resolvedcounts.map((bugCount, key) => {
+                return <Grid item xs={12} sm={4} key={key}>
+                    <NumBugsCard priority={key+1} count={bugCount} clicked={redirect}/>
                 </Grid>
-                <Grid item xs={12} sm={4}>
-                    <NumBugsCard priority={2} count={moderateCount.length} clicked={redirect}/>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <NumBugsCard priority={3} count={lowCount.length} clicked={redirect}/>
-                </Grid>
-            </Grid>
+            })}
         </Grid>
-        <Typography  variant="h4" justifyContent="center" align="center" sx={{mt:3, mb: 1}}>
+        <Typography  variant="h4" justifyContent="center" sx={{mt:5, mb: 1}}>
             Resolved
         </Typography>
-        <Grid container spacing={2} sx={{mt: "20%"}}>
-            <Grid container justifyContent="space-between" spacing={0}>
-                <Grid item xs={12} sm={4}>
-                    <NumBugsCard priority={1} count={highCount.length} clicked={redirect}/>
+        <Grid container justifyContent="space-between" spacing={0} sx={{mt: "20%"}}>
+            {Unresolvedcounts.map((bugCount, key) => {
+                return <Grid item xs={12} sm={4} key={key}>
+                    <NumBugsCard priority={key+4} count={bugCount} clicked={redirect}/>
                 </Grid>
-                <Grid item xs={12} sm={4}>
-                    <NumBugsCard priority={2} count={moderateCount.length} clicked={redirect}/>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <NumBugsCard priority={3} count={lowCount.length} clicked={redirect}/>
-                </Grid>
-            </Grid>
+            })}
         </Grid>
-    </Grid>
+    </>
     )
 }
 

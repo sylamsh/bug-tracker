@@ -1,12 +1,14 @@
+import { CREATE, FETCH_ALL, UPDATE, DELETE } from '../actionTypes'
+
 const reducer = (bugs = [], action) => {
     switch (action.type) {
-        case 'CREATE':
+        case CREATE:
             return [...bugs, action.payload];
-        case 'FETCH_ALL':
+        case FETCH_ALL:
             return action.payload;
-        case 'UPDATE':
+        case UPDATE:
             return bugs.map((bug) => bug._id === action.payload._id ? action.payload : bug);
-        case 'DELETE':
+        case DELETE:
             return bugs.filter((post) => post._id !== action.payload);
         default:
             return bugs;

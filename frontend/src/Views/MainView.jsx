@@ -38,7 +38,7 @@ export default function Main(){
     palette: {
       primary: {
         main: Themecolor,
-        text: "Tcolor",
+        text: Tcolor,
       },
       secondary: {
         main: '#f0f0c9',

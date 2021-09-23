@@ -1,9 +1,10 @@
+import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../actionTypes";
 import * as api from "../api";
 
 export const getBugs = () => async (dispatch) => {
     try {
         const { data } = await api.fetchBugs();
-        dispatch({ type: 'FETCH_ALL', payload: data})
+        dispatch({ type: FETCH_ALL, payload: data})
     } catch(error) {
         console.log(error.message)
     }
@@ -12,7 +13,7 @@ export const getBugs = () => async (dispatch) => {
 export const createBug = (bug) => async(dispatch) => {
     try {
         const { data } = await api.createBug(bug)
-        dispatch({ type: 'CREATE', payload: data})
+        dispatch({ type: CREATE, payload: data})
     } catch(error) {
         console.log(error.message)
     }
@@ -21,8 +22,7 @@ export const createBug = (bug) => async(dispatch) => {
 export const updateBug = (id, bug) => async (dispatch) => {
     try {
         const { data } = await api.updateBug(id, bug)
-        console.log(data)
-        dispatch({ type: 'UPDATE', payload: data })
+        dispatch({ type: UPDATE, payload: data })
     } catch(error) {
         console.log(error.message)
     }
@@ -31,7 +31,16 @@ export const updateBug = (id, bug) => async (dispatch) => {
 export const deleteBug = (id) => async (dispatch) => {
     try {
         await api.deleteBug(id)
-        dispatch({ type: 'DELETE', payload: id})
+        dispatch({ type: DELETE, payload: id})
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+export const resolveBug = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.resolveBug(id)
+        dispatch({ type: UPDATE, payload: data })
     } catch(error) {
         console.log(error)
     }
