@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import {useDispatch} from "react-redux";
-import {signIn} from "../../Controllers/Redux/authSlice"
+// import {signIn} from "../../Controllers/Redux/authSlice"
 import AppBar from "../Components/appBar";
 
 //MUI
@@ -54,8 +54,8 @@ export default function Login(){
         })
     }
     const submit = (e) => {
-        dispatch(signIn(formInput))
-        e.preventDefault();
+        // dispatch(signIn(formInput))
+        // e.preventDefault();
     }
 
   return (

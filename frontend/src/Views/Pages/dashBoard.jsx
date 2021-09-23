@@ -41,7 +41,7 @@ export default function DashBoard() {
         </Typography>
         <Grid container justifyContent="space-between" spacing={0} sx={{mt: "20%"}}>
             {Resolvedcounts.map((bugCount, key) => {
-                return <Grid item xs={12} sm={4} key={key}>
+                return <Grid item sm={12} md={4} key={key}>
                     <NumBugsCard priority={key+1} count={bugCount} clicked={redirect}/>
                 </Grid>
             })}
@@ -51,7 +51,7 @@ export default function DashBoard() {
         </Typography>
         <Grid container justifyContent="space-between" spacing={0} sx={{mt: "20%"}}>
             {Unresolvedcounts.map((bugCount, key) => {
-                return <Grid item xs={12} sm={4} key={key}>
+                return <Grid item sm={12} md={4} key={key}>
                     <NumBugsCard priority={key+4} count={bugCount} clicked={redirect}/>
                 </Grid>
             })}

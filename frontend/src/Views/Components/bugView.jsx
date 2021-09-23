@@ -1,4 +1,4 @@
-import React,{ useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import PriorityController from '../../Controllers/priorityController';
@@ -24,7 +24,7 @@ import Typography from '@mui/material/Typography';
 export default function BugView({bug, setCurrentId, collapse, ChangePriorityTheme}) {
     const dispatch = useDispatch();
     const {_id, name, details, steps, version, priority, assigned, creator, createdOn, isResolved} = bug;
-    const {level, BGcolor, Tcolor} = PriorityController(priority);
+    const {level} = PriorityController(priority);
     const browserHistory = useHistory();
 
     const editClicked = () => {

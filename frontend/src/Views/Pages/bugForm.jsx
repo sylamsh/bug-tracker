@@ -88,7 +88,7 @@ export default function CreateForm({ currentId, setCurrentId, ChangePriorityThem
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}}>
             <Grid container spacing={2}>
 {/* PRIORITY */}
-               <Grid item xs={12} sm={4}>
+               <Grid item sm={12} md={4}>
                 <TextField
                   select
                   variant="standard"
@@ -106,7 +106,7 @@ export default function CreateForm({ currentId, setCurrentId, ChangePriorityThem
                 </TextField>
               </Grid>
 {/* VERSION */}
-              <Grid item xs={12} sm={4}>
+              <Grid item sm={12} md={4}>
                 <TextField
                 select
                 variant="standard"
@@ -124,7 +124,7 @@ export default function CreateForm({ currentId, setCurrentId, ChangePriorityThem
                 </TextField>
               </Grid>
 {/* BUG ASSIGNED TO */}
-              <Grid item xs={12} sm={4}>
+              <Grid item sm={12} md={4}>
                 <TextField
                   select
                   variant="standard"

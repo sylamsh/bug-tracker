@@ -1,7 +1,5 @@
 import React,{ useState } from "react";
 import { useSelector } from "react-redux";
-// import { getBugs } from  "../../Controllers/Redux/bugSlice";
-// import { getBugs } from "../../Controllers/actions/bugs";
 
 //Components
 import BugCard from "../Components/bugCard";
