@@ -8,7 +8,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PriorityController from "./Controllers/priorityController";
 
 function App() {
-  const [priorityTheme, setPriorityTheme] = useState(null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const [priorityTheme, setPriorityTheme] = useState(null);
     const { Themecolor, BGcolor, Tcolor } = PriorityController(priorityTheme);
     const theme = createTheme({
         palette: {
@@ -39,11 +40,7 @@ function App() {
     <Router>
     <ThemeProvider theme={theme}>
      <AppBar />
-      {/* {!auth.LoggedIn ? <Login /> :  */}
-      <>
-      <Auth />
-        {/* <MainView setPriorityTheme={setPriorityTheme}/> */}
-      </>
+       {!user ? <Auth /> : <MainView setPriorityTheme={setPriorityTheme} user={user} setUser={setUser}/> }
       </ThemeProvider>
     </Router>
     

@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../Model/userModel'
+import User from '../Model/userModel.js'
 
 export const signin = async (req, res) => {
     const { email, password } = req.body
@@ -13,6 +13,7 @@ export const signin = async (req, res) => {
 
         const token = jwt.sign({
             email: existingUser.email,
+            role: existingUser.role,
             id: existingUser._id,
         }, process.env.SECRET_KEY, { expiresIn: "1h" })
         res.status(200).json({result: existingUser, token})
@@ -27,18 +28,18 @@ export const signup = async (req, res) => {
     try {
         const existingUser = await User.findOne({ email })
         if(existingUser) res.status(400).json({ message: "User already exists" })
-        if(existingUser.userName) res.status(409).json({ message: "Username already exists" })
-
+    
         const hashedPassword = await bcrypt.hash(password, 12)
         const result = await User.create({ email, password: hashedPassword, userName, role })
         const token = jwt.sign({
             email: result.email,
+            role: result.role,
             id: result._id,
         }, process.env.SECRET_KEY, { expiresIn: "1h" })
         
         res.status(200).json({result: result, token})
     
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong" })   
+        res.status(500).json({ message: error })   
     }
 }

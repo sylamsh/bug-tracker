@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import Bug from '../Model/BugModel.js'
 
 export const getBugs = async (req, res) => {
+    console.log("requesting bugs")
     try {
         const bugs = await Bug.find();
         res.status(200).json(bugs)

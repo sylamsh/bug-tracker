@@ -18,7 +18,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 
-export default function Main({setPriorityTheme}){
+export default function Main({setPriorityTheme, user, setUser }){
   const [currentId, setCurrentId] = useState(null);
 
   const dispatch = useDispatch();

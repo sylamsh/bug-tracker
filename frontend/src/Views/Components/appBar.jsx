@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 //MUI
 import AppBar from '@mui/material/AppBar';
@@ -13,6 +14,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 export default function ApplicationBar() {
   const user =  {
     result : {role : null, name:"Mr.Dummy"}
+  }
+
+  const dispatch = useDispatch()
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' })
   }
 
     return (
@@ -35,7 +41,7 @@ export default function ApplicationBar() {
                &nbsp;{user.result.role === null ? "" : (user.result.role === "admin" ? "ADMIN" : "DEV")}
             </Typography>
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={logout}>Logout</Button>
         </Toolbar>
       </AppBar>
     )

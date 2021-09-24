@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import UserModel from '../../Models/userModel';
+import { useDispatch } from 'react-redux';
 import { signup, signin } from '../../Controllers/actions/auth';
 
 //MUI
@@ -25,7 +26,10 @@ export default function SignUp() {
   const [isSignup, setSignup] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
-  
+  const handleShowPassword = () => {
+    setShowPassword(prevState => !prevState)
+  }
+
   const switchMode = () => {
     setSignup(prevState => !prevState)
     setShowPassword(false)
@@ -38,13 +42,14 @@ export default function SignUp() {
      })
   }
 
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if(isSignup) {
-    //   dispatch(signup(userObject));
-    // } else {
-    //   dispatch(signin(userObject));
-    // }
+    if(isSignup) {
+      dispatch(signup({...userObject}));
+    } else {
+      dispatch(signin({...userObject}));
+    }
   };
 
   return (
@@ -97,18 +102,15 @@ export default function SignUp() {
                   onChange={handleChange}
                   label="Password"
                   type={showPassword ? "text" : "password"} 
-                     InputProps={{
-                       endAdornment: (
-                         <InputAdornment position="end">
-                           <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
-                              onMouseDown={handleMouseDownPassword}>
-                              {showPassword ? <Visibility /> : <VisibilityOff />}
-                           </IconButton>
-                         </InputAdornment>
-                       )
-                     }}/>
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleShowPassword}>
+                          {showPassword === 'password' ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}/>
               </Grid>
               {isSignup && <Grid item xs={12} display="flex" justifyContent="space-between">
                 <FormLabel component="legend">Role</FormLabel>
