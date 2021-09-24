@@ -19,18 +19,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewBugs({ChangePriorityTheme, setCurrentId}){
+export default function ViewBugs({setPriorityTheme, setCurrentId}){
     const bugs = useSelector((state) => state.bugs);
 
     // Theme Controller
     const [displayBug, setDisplayBug] = useState(null);
     function BugClicked(_id, priority) {
       setDisplayBug(_id);
-      ChangePriorityTheme(priority);
+      setPriorityTheme(priority);
     }
     function CollapseView() {
       setDisplayBug(null);
-      ChangePriorityTheme(null);
+      setPriorityTheme(null);
     }
     
     const classes = useStyles();
@@ -38,7 +38,7 @@ export default function ViewBugs({ChangePriorityTheme, setCurrentId}){
       !bugs.length ? 
         <Grid container direction="row" alignItems="center" justifyContent="center" style={{height:"80vh"}}>
           <CircularProgress sx={{margin : "0 auto"}}/> 
-        </Grid> : <Grid container justifyContent="space-between" className={classes.root} spacing={2}>
+        </Grid> : <Grid container justifyContent="space-between" spacing={2}>
               {bugs.map( (bug, key) => {
                   return (
                   <Grid item key={key} sm={12} md={6}>
@@ -46,7 +46,7 @@ export default function ViewBugs({ChangePriorityTheme, setCurrentId}){
                       {bug._id === displayBug && <BugView bug={bug} 
                                                           collapse={CollapseView} 
                                                           setCurrentId={setCurrentId}
-                                                          ChangePriorityTheme={ChangePriorityTheme}/>}
+                                                          setPriorityTheme={setPriorityTheme}/>}
                   </Grid>
                 );
               })}

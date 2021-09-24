@@ -4,23 +4,21 @@ import './sideBar.css'
 
 //MUI
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
 
 const drawerWidth = 240;
 
-export default function SideBar({ChangePriorityTheme, setCurrentId}){
-    // const dispatch = useDispatch();
-    // const { auth } = useSelector(state => state);
-    // const SignOut = () =>{
-    //     dispatch(signOut());
-    // }
+export default function SideBar({setPriorityTheme, setCurrentId}){
+    const user =  {
+      result : {role : null, name:"Mr.Dummy"}
+    }
     const clickedOptions = () => {
-      ChangePriorityTheme(null);
+      setPriorityTheme(null);
       setCurrentId(null);
     }
 
@@ -35,6 +33,15 @@ export default function SideBar({ChangePriorityTheme, setCurrentId}){
       >
       <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
+            <Divider />
+            <List>
+              <ListItem>
+                <Typography sx={{color:"secondary.text"}} variant="h6" >
+                  {user.result.name}
+                </Typography>
+              </ListItem>
+            </List>
+            <Divider />
             <List>
               <ListItem>
                 <Link to='/' className="side-link" onClick={clickedOptions}>DashBoard</Link>
@@ -49,19 +56,6 @@ export default function SideBar({ChangePriorityTheme, setCurrentId}){
               </ListItem>
           </List>
           <Divider />
-            <List>
-            <ListItem>
-                {/* <Button
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 1, mb: 1}}
-                  color="error"
-                  // style={{color : "rgba(240, 240, 201, 1)"}}
-                  onClick={SignOut}>
-                Logout
-                </Button> */}
-              </ListItem>
-          </List>
         </Box>
       </Drawer>
     )

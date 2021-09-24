@@ -21,7 +21,7 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Typography from '@mui/material/Typography';
 
-export default function BugView({bug, setCurrentId, collapse, ChangePriorityTheme}) {
+export default function BugView({bug, setCurrentId, collapse, setPriorityTheme}) {
     const dispatch = useDispatch();
     const {_id, name, details, steps, version, priority, assigned, creator, createdOn, isResolved} = bug;
     const {level} = PriorityController(priority);
@@ -38,7 +38,7 @@ export default function BugView({bug, setCurrentId, collapse, ChangePriorityThem
     const resolveClicked = () => {
       dispatch(resolveBug(_id))
       const priorityTheme = !bug.isResolved ? (3 + parseInt(bug.priority)) : bug.priority;
-      ChangePriorityTheme(priorityTheme)
+      setPriorityTheme(priorityTheme)
     }
 
   return (

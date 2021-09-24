@@ -37,7 +37,7 @@ const priorities = [
 ];
 const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5"];
 
-export default function CreateForm({ currentId, setCurrentId, ChangePriorityTheme }) {
+export default function CreateForm({ currentId, setCurrentId, setPriorityTheme }) {
   const [bugObject, setBugOject] = useState(new BugModel());
   const bug = useSelector((state) => currentId ? state.bugs.find((b) => b._id === currentId) : null);
   
@@ -53,7 +53,7 @@ export default function CreateForm({ currentId, setCurrentId, ChangePriorityThem
   }
   
   const handlePrioritySelect = (e) => {
-    ChangePriorityTheme(e.target.value);
+    setPriorityTheme(e.target.value);
   }
   
   const browserHistory = useHistory();
@@ -67,7 +67,7 @@ export default function CreateForm({ currentId, setCurrentId, ChangePriorityThem
     }
     browserHistory.push('/viewBugs');
     setCurrentId(null);
-    ChangePriorityTheme(null);
+    setPriorityTheme(null);
   };
 
   return (
