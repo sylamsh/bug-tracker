@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 //Redux
 import { useDispatch } from "react-redux";
 import { getBugs } from "../Controllers/actions/bugs";
+import { getDevs } from '../Controllers/actions/auth';
 
 //Components
 import SideBar from './Components/sideBar';
@@ -25,6 +26,7 @@ export default function Main({setPriorityTheme}){
   const dispatch = useDispatch();
   useEffect(() => {
       dispatch(getBugs());
+      dispatch(getDevs())
   }, [dispatch, currentId]);
 
   return (

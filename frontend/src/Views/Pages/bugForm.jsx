@@ -40,25 +40,27 @@ const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3",
 export default function CreateForm({ currentId, setCurrentId, setPriorityTheme }) {
   const [bugObject, setBugOject] = useState(new BugModel());
   const bug = useSelector((state) => currentId ? state.bugs.find((b) => b._id === currentId) : null);
+  const users = useSelector((state) => state.auth);
+  const browserHistory = useHistory();
+  const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem('profile'));
 
   useEffect(() => {
     if(bug) setBugOject(bug);
-  },[bug])
+  },[bug, dispatch])
 
   const changeInput = (e) => {
     setBugOject({
       ...bugObject,
       [e.target.name] : e.target.value,
     }) 
+    console.log(bugObject)
   }
   
   const handlePrioritySelect = (e) => {
     setPriorityTheme(e.target.value);
   }
   
-  const browserHistory = useHistory();
-  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     if(currentId !== null) {
@@ -134,13 +136,12 @@ export default function CreateForm({ currentId, setCurrentId, setPriorityTheme }
                   value={bugObject.assigned}
                   onChange={changeInput}
                   helperText=""
-                  sx={{ width:"100%"}}
-                  >
-                    {priorities.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
+                  sx={{ width:"100%"}}>
+                    {users.map((user) => (
+                     <MenuItem key={user._id} value={user.userName}>
+                        {user.userName}
                       </MenuItem>
-                  ))}
+                    ))}
                 </TextField>
               </Grid>
 {/* TITLE OF BUG */}

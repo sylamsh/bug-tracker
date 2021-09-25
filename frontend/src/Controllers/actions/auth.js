@@ -1,4 +1,4 @@
-import { AUTH } from "../actionTypes";
+import { AUTH, FETCH } from "../actionTypes";
 import * as api from "../api";
 
 export const signin = (userObject, setUser) =>  async (dispatch) => {
@@ -19,4 +19,13 @@ export const signup = (userObject, setUser) =>  async (dispatch) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+export const getDevs = () => async (dispatch) => {
+    try {
+        const { data } = await api.fetchDevs();
+        dispatch({ type: FETCH, payload: data})
+    } catch(error) {
+        console.log(error.message)
+    } 
 }

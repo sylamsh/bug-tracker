@@ -16,3 +16,4 @@ export const devRespond = (id, devResponse) => API.patch(`/bugs/${id}/devRespond
 
 export const signin = (userObject) => API.post('/user/signin', userObject);
 export const signup = (userObject) => API.post('/user/signup', userObject);
+export const fetchDevs = () => API.get('/user/dev');

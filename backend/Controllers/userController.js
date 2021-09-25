@@ -43,3 +43,12 @@ export const signup = async (req, res) => {
         res.status(500).json({ message: error })   
     }
 }
+
+export const fetchDevs = async (req, res) => {
+    try {
+        const devs = await User.find({ role: "developer" });
+        res.status(200).json(devs)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}

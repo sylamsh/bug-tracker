@@ -7,7 +7,7 @@ export const getBugs = () => async (dispatch) => {
         dispatch({ type: FETCH_ALL, payload: data})
     } catch(error) {
         console.log(error.message)
-    }
+    } 
 }
 
 export const createBug = (bug) => async(dispatch) => {
