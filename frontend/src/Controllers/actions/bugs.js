@@ -45,3 +45,12 @@ export const resolveBug = (id) => async (dispatch) => {
         console.log(error)
     }
 }
+
+export const devRespond = (id, devResponse) => async (dispatch) => {
+    try {
+        const { data } = await api.devRespond(id, devResponse)
+        dispatch({ type: UPDATE, payload: data })
+    } catch(error) {
+        console.log(error)
+    }
+}

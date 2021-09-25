@@ -20,16 +20,13 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 
-export default function SignUp() {
+export default function AuthForm({setUser}) {
   const [userObject, setUserObject] = useState(new UserModel());
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setSignup] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
-  const handleShowPassword = () => {
-    setShowPassword(prevState => !prevState)
-  }
-
+  
   const switchMode = () => {
     setSignup(prevState => !prevState)
     setShowPassword(false)
@@ -46,9 +43,9 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(isSignup) {
-      dispatch(signup({...userObject}));
+      dispatch(signup({...userObject}, setUser));
     } else {
-      dispatch(signin({...userObject}));
+      dispatch(signin({...userObject}, setUser));
     }
   };
 
@@ -102,16 +99,19 @@ export default function SignUp() {
                   onChange={handleChange}
                   label="Password"
                   type={showPassword ? "text" : "password"} 
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={handleShowPassword}>
-                          {showPassword === 'password' ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}/>
+                     InputProps={{
+                       endAdornment: (
+                         <InputAdornment position="end">
+                           <IconButton
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}>
+                              {showPassword ? <Visibility /> : <VisibilityOff />}
+                           </IconButton>
+                         </InputAdornment>
+                       ),
+                     }}/>
               </Grid>
+              
               {isSignup && <Grid item xs={12} display="flex" justifyContent="space-between">
                 <FormLabel component="legend">Role</FormLabel>
                 <RadioGroup row name="role" value={userObject.role} onChange={handleChange}>
@@ -125,8 +125,7 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+              sx={{ mt: 3, mb: 2 }}>
               {isSignup ? "Sign Up" : "Login"}
             </Button>
             <Grid container justifyContent="flex-end">

@@ -40,7 +40,8 @@ const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3",
 export default function CreateForm({ currentId, setCurrentId, setPriorityTheme }) {
   const [bugObject, setBugOject] = useState(new BugModel());
   const bug = useSelector((state) => currentId ? state.bugs.find((b) => b._id === currentId) : null);
-  
+  const user = JSON.parse(localStorage.getItem('profile'));
+
   useEffect(() => {
     if(bug) setBugOject(bug);
   },[bug])
@@ -61,9 +62,9 @@ export default function CreateForm({ currentId, setCurrentId, setPriorityTheme }
   const handleSubmit = (e) => {
     e.preventDefault();
     if(currentId !== null) {
-      dispatch(updateBug(currentId, bugObject));
+      dispatch(updateBug(currentId, { ...bugObject, name: user?.result?.userName }));
     } else {
-      dispatch(createBug({...bugObject}));
+      dispatch(createBug({ ...bugObject, name: user?.result?.userName }));
     }
     browserHistory.push('/viewBugs');
     setCurrentId(null);
@@ -145,8 +146,8 @@ export default function CreateForm({ currentId, setCurrentId, setPriorityTheme }
 {/* TITLE OF BUG */}
               <Grid item xs={12} sm={12}>
                 <TextField
-                  name="name"
-                  value={bugObject.name}
+                  name="title"
+                  value={bugObject.title}
                   onChange={changeInput}
                   required
                   fullWidth

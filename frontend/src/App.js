@@ -9,6 +9,7 @@ import PriorityController from "./Controllers/priorityController";
 
 function App() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+
     const [priorityTheme, setPriorityTheme] = useState(null);
     const { Themecolor, BGcolor, Tcolor } = PriorityController(priorityTheme);
     const theme = createTheme({
@@ -39,8 +40,8 @@ function App() {
   return (
     <Router>
     <ThemeProvider theme={theme}>
-     <AppBar />
-       {!user ? <Auth /> : <MainView setPriorityTheme={setPriorityTheme} user={user} setUser={setUser}/> }
+     <AppBar setUser={setUser}/>
+       {!user ? <Auth setUser={setUser}/> : <MainView setPriorityTheme={setPriorityTheme} /> }
       </ThemeProvider>
     </Router>
     

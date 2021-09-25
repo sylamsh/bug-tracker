@@ -18,8 +18,9 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 
-export default function Main({setPriorityTheme, user, setUser }){
+export default function Main({setPriorityTheme}){
   const [currentId, setCurrentId] = useState(null);
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -41,10 +42,10 @@ export default function Main({setPriorityTheme, user, setUser }){
             <Route path="/viewBugs"><ViewBugs setPriorityTheme={setPriorityTheme}
                                               setCurrentId={setCurrentId}/>
             </Route>
-            <Route path="/form"><BugForm  setPriorityTheme={setPriorityTheme} 
-                                          currentId={currentId}
-                                          setCurrentId={setCurrentId}/>
-            </Route>
+            {user.result.role === "admin" && <Route path="/form"><BugForm setPriorityTheme={setPriorityTheme} 
+                                                                          currentId={currentId}
+                                                                          setCurrentId={setCurrentId}/>
+            </Route>}
             <Route path="/" exact><DashBoard /></Route>
           </Switch>
         </Box>

@@ -14,9 +14,7 @@ import Typography from '@mui/material/Typography';
 const drawerWidth = 240;
 
 export default function SideBar({setPriorityTheme, setCurrentId}){
-    const user =  {
-      result : {role : null, name:"Mr.Dummy"}
-    }
+    const user = JSON.parse(localStorage.getItem('profile'));
     const clickedOptions = () => {
       setPriorityTheme(null);
       setCurrentId(null);
@@ -37,7 +35,7 @@ export default function SideBar({setPriorityTheme, setCurrentId}){
             <List>
               <ListItem>
                 <Typography sx={{color:"secondary.text"}} variant="h6" >
-                  {user.result.name}
+                  {user.result.userName}
                 </Typography>
               </ListItem>
             </List>
@@ -46,11 +44,9 @@ export default function SideBar({setPriorityTheme, setCurrentId}){
               <ListItem>
                 <Link to='/' className="side-link" onClick={clickedOptions}>DashBoard</Link>
               </ListItem>
-              {/* {auth.admin &&  */}
-              <ListItem>
+              {user.result.role === "admin" && <ListItem>
                 <Link to='/form' className="side-link" onClick={clickedOptions}>Create Bug Issue</Link>
-              </ListItem>
-              {/* } */}
+              </ListItem>} 
               <ListItem>
                 <Link to='/viewBugs' className="side-link" onClick={clickedOptions}>View Bugs</Link>
               </ListItem>
