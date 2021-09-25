@@ -57,8 +57,8 @@ export default function BugView({bug, setCurrentId, collapse, setPriorityTheme})
     }
 
   return (
-    <Box sx={{ minWidth: 275}}>
-      <Card className="bug-card" >
+    <Box sx={{ minWidth: 463}}>
+      <Card className="bug-card" variant="outlined">
           <CardHeader
             action={
                 user.result.userName === name && <EditPanel editClicked={editClicked} deleteClicked={deleteClicked} bug={bug}/>

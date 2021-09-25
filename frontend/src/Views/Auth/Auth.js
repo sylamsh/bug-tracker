@@ -1,11 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import UserModel from '../../Models/userModel';
 import { useDispatch } from 'react-redux';
 import { signup, signin } from '../../Controllers/actions/auth';
 
 //MUI
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -15,21 +14,40 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {InputAdornment, IconButton } from "@material-ui/core";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
 
 export default function AuthForm({setUser}) {
   const [userObject, setUserObject] = useState(new UserModel());
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSignup, setSignup] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
-  
+  const [Signup, setSignup] = useState({
+    state: false,
+    header: "Login"
+  });
+  const [emailError, setEmailError] = useState({
+    error: false,
+    message: ""
+  });
+  const [passwordError, setPasswordError] = useState({
+    error: false,
+    message: ""
+  });
+  const [disableSubmit, setDisableSubmit] = useState(true);
+
   const switchMode = () => {
-    setSignup(prevState => !prevState)
-    setShowPassword(false)
+    setSignup({
+      ...Signup,
+      state: !Signup.state,
+      header: !Signup.state ? "Sign Up" : "Login"
+    })
+    setDisableSubmit(true)
+    setEmailError({
+        ...emailError,
+        error: false,
+        message: ""
+      })
+    setPasswordError({
+      ...emailError,
+      error: false,
+      message: ""
+    })
   }
 
   const handleChange = (e) => {
@@ -37,82 +55,100 @@ export default function AuthForm({setUser}) {
        ...userObject,
        [e.target.name]: e.target.value,
      })
+     if(e.target.name === "email") {
+       setEmailError({
+        ...emailError,
+        error: false,
+        message: ""
+      })
+     }
+     if(e.target.name === "password") {
+       setPasswordError({
+        ...emailError,
+        error: false,
+        message: ""
+      })
+     }
   }
+  useEffect(() => {
+    let signupParamsBool = userObject.role !== '' && userObject.userName !== '';
+    let loginParamsBool = userObject.email !== '' && userObject.password !== '';
+    if((Signup.state && signupParamsBool && loginParamsBool) || (!Signup.state && loginParamsBool)) {
+      setDisableSubmit(false);
+    }
+  })
 
   const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(isSignup) {
-      dispatch(signup({...userObject}, setUser));
+    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(userObject.email)){
+      setEmailError({
+        ...emailError,
+        error: true,
+        message: "Please enter a valid email"
+      })
+    } else if (Signup.state) {
+      dispatch(signup({...userObject}, setUser, setEmailError, setSignup));
     } else {
-      dispatch(signin({...userObject}, setUser));
+      dispatch(signin({...userObject}, setUser, setEmailError, setPasswordError, setSignup));
     }
   };
 
   return (
-    <>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 12,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <Typography component="h1" variant="h5">
-            {isSignup ? "SignUp" : "Login"}
+            {Signup.header}
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              {isSignup && <Grid item xs={12} sm={12}>
+              {Signup.state && <Grid item xs={12} sm={12}>
                 <TextField
                   name="userName"
                   value={userObject.userName}
                   onChange={handleChange}
-                  autoComplete="uname"
+                  label="User Name"
+                  helperText=""
                   required
                   fullWidth
-                  label="User Name"
                   autoFocus
                 />
               </Grid>}
               <Grid item xs={12}>
                 <TextField
-                  required
-                  fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   value={userObject.email}
                   onChange={handleChange}
                   autoComplete="email"
+                  helperText={emailError.message}
+                  error={emailError.error}
+                  required
+                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
-                  fullWidth
                   name="password"
                   value={userObject.password}
                   onChange={handleChange}
                   label="Password"
-                  type={showPassword ? "text" : "password"} 
-                     InputProps={{
-                       endAdornment: (
-                         <InputAdornment position="end">
-                           <IconButton
-                              onClick={handleClickShowPassword}
-                              onMouseDown={handleMouseDownPassword}>
-                              {showPassword ? <Visibility /> : <VisibilityOff />}
-                           </IconButton>
-                         </InputAdornment>
-                       ),
-                     }}/>
+                  type="password"
+                  error={passwordError.error}
+                  helperText={passwordError.message}
+                  required
+                  fullWidth
+                />
               </Grid>
               
-              {isSignup && <Grid item xs={12} display="flex" justifyContent="space-between">
+              {Signup.state && <Grid item xs={12} display="flex" justifyContent="space-between">
                 <FormLabel component="legend">Role</FormLabel>
                 <RadioGroup row name="role" value={userObject.role} onChange={handleChange}>
                   <FormControlLabel value="admin" control={<Radio />} label="Admin" />
@@ -122,23 +158,23 @@ export default function AuthForm({setUser}) {
             </Grid>
             
             <Button
-              type="submit"
               fullWidth
+              type="submit"
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}>
-              {isSignup ? "Sign Up" : "Login"}
+              sx={{ mt: 3, mb: 2 }}
+              disabled={disableSubmit}>
+              {Signup.state ? "Sign Up" : "Login"}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Button onClick={switchMode}>
-                  {isSignup ? "Already have an account? Sign in" : "Don't have an account? Sign Up"}
+                  {Signup.state ? "Already have an account? Sign in" : "Don't have an account? Sign Up"}
                 </Button>
               </Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
-    </>
   );
 }
 

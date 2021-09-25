@@ -12,7 +12,7 @@ const OutlinedCard = (props) => {
     const {title, version, name, assigned, createdOn} = props.bug;
 
     return  <React.Fragment>
-    <CardContent style={{color : props.Tcolor}}>
+    <CardContent style={{color : props.Tcolor}} >
       <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
         {props.level}
       </Typography>
@@ -43,7 +43,7 @@ export default function Bugcard(props) {
     }
     
     return (
-    <Box sx={{ minWidth: 275 }} onClick={Clicked}>
+    <Box sx={{ minWidth: 463 }} onClick={Clicked} >
       <Card style={{backgroundColor : BGcolor}} className="bug-card">
           <OutlinedCard bug={props.bug} level={level} Tcolor={Tcolor}/>
       </Card>

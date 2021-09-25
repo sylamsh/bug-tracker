@@ -17,7 +17,7 @@ import DashBoard from './Pages/dashBoard';
 //MUI
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import CssBaseline from '@mui/material/CssBaseline';
+
 
 export default function Main({setPriorityTheme}){
   const [currentId, setCurrentId] = useState(null);
@@ -32,13 +32,13 @@ export default function Main({setPriorityTheme}){
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
+        
         {/* <AppBar /> */}
         <SideBar  setPriorityTheme={setPriorityTheme}
                   setCurrentId={setCurrentId}/>
         <Box
           component="main"
-          sx={{ flexGrow: 1,  p: 3 }}>
+          sx={{ flexGrow: 1,  p: 2 }}>
           <Toolbar />
           <Switch>
             <Route path="/viewBugs"><ViewBugs setPriorityTheme={setPriorityTheme}

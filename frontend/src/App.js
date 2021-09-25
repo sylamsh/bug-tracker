@@ -5,6 +5,7 @@ import Auth from "./Views/Auth/Auth"
 import MainView from "./Views/MainView";
 import AppBar from "./Views/Components/appBar";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import PriorityController from "./Controllers/priorityController";
 
 function App() {
@@ -39,10 +40,11 @@ function App() {
 
   return (
     <Router>
-    <ThemeProvider theme={theme}>
-     <AppBar setUser={setUser}/>
-       {!user ? <Auth setUser={setUser}/> : <MainView setPriorityTheme={setPriorityTheme} /> }
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+                <AppBar setUser={setUser}/>
+                {!user ? <Auth setUser={setUser}/> : <MainView setPriorityTheme={setPriorityTheme} /> }
+        </ThemeProvider>
     </Router>
     
   );

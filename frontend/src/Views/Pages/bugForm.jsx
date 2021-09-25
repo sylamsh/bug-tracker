@@ -5,8 +5,9 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBug, updateBug } from '../../Controllers/actions/bugs';
 
-//BugObject for the state
+//Models and Data
 import BugModel from '../../Models/bugModel';
+import { priorities, versions } from '../../Models/bugAttributeData';
 
 //MDEditor
 import MDEditor from "@uiw/react-md-editor";
@@ -20,22 +21,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
- 
-const priorities = [
-  {
-    value: '1',
-    label: 'High',
-  },
-  {
-    value: '2',
-    label: 'Moderate',
-  },
-  {
-    value: '3',
-    label: 'Low',
-  },
-];
-const versions = ["1.0.0", "1.0.1", "1.1.0", "1.2.0", "1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5"];
 
 export default function CreateForm({ currentId, setCurrentId, setPriorityTheme }) {
   const [bugObject, setBugOject] = useState(new BugModel());
