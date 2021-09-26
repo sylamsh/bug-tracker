@@ -49,7 +49,7 @@ export default function BugView({bug, setCurrentId, collapse, setPriorityTheme})
     }
     const submitResponse = (e) => {
       e.preventDefault()
-      dispatch(devRespond(_id, { devResponse: stateDevResponse }))
+      dispatch(devRespond(_id, { devResponse: stateDevResponse },editDevResponse))
       editDevResponse()
     }
     const editDevResponse = () => {
@@ -88,10 +88,10 @@ export default function BugView({bug, setCurrentId, collapse, setPriorityTheme})
 
           <Typography variant="h5" color="primary.main" sx={{mt:1}}>Details</Typography>
           <MDEditor.Markdown source={details} />
-          {((user.result.role === 'admin' && devResponse) || (user.result.role !== 'admin' && stateEditResponse)) && 
+          {((user.result.role === 'admin' && devResponse) || (user.result.userName === assigned && stateEditResponse)) && 
                 <Typography variant="h5" color="primary.main" sx={{mt:1}}>Developer Response</Typography>}
           {user.result.role === 'admin' && devResponse && <Typography>{devResponse}</Typography>}
-          {user.result.role !== "admin" && (stateEditResponse ? <Typography>{devResponse}</Typography> : 
+          {user.result.userName === assigned && (stateEditResponse ? <Typography>{devResponse}</Typography> : 
           <TextField
             value={stateDevResponse}
             onChange={handleResponse}
@@ -102,11 +102,10 @@ export default function BugView({bug, setCurrentId, collapse, setPriorityTheme})
             multiline/>)}
         </CardContent>
         <CardActions>
-          {/* <Button variant="contained" style={{margin:"0 auto"}}>Assign to</Button> */}
           <ButtonGroup aria-label="outlined primary button group" style={{margin:"0 auto"}} fullWidth>
             {user.result.userName === name && <Button variant="contained" color="success" onClick={resolveClicked}>{ isResolved ? 'Unresolve' : 'Resolve' }</Button>}
-            {user.result.role !== "admin" && !stateEditResponse && <Button variant="contained" color="success" onClick={submitResponse}>Respond</Button>}
-            {user.result.role !== "admin" && stateEditResponse && <Button variant="contained" color="success" onClick={editDevResponse}>Edit Response</Button>}
+            {user.result.userName === assigned && !stateEditResponse && <Button variant="contained" color="success" onClick={submitResponse}>Respond</Button>}
+            {user.result.userName === assigned && stateEditResponse && <Button variant="contained" color="success" onClick={editDevResponse}>Edit Response</Button>}
             <Button variant="outlined" onClick={collapse}>collapse</Button>
           </ButtonGroup>
         </CardActions>

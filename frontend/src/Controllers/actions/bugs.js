@@ -46,10 +46,11 @@ export const resolveBug = (id) => async (dispatch) => {
     }
 }
 
-export const devRespond = (id, devResponse) => async (dispatch) => {
+export const devRespond = (id, devResponse, editDevResponse) => async (dispatch) => {
     try {
         const { data } = await api.devRespond(id, devResponse)
         dispatch({ type: UPDATE, payload: data })
+        editDevResponse()
     } catch(error) {
         console.log(error)
     }
