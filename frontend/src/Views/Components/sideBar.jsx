@@ -34,7 +34,7 @@ function DrawerElement({setPriorityTheme, setCurrentId}){
             <Divider />
             <List>
               <ListItem>
-                <Typography sx={{color:"secondary.text"}} variant="h6" >
+                <Typography sx={{color:"primary.text"}} variant="h6" >
                   {user.result.userName}
                 </Typography>
               </ListItem>

@@ -1,16 +1,17 @@
-const Themecolor = ["rgba(137, 30, 10, 1)", "rgba(215, 78, 9, 1)", "rgba(232, 181, 14, 1)",
-                    "rgba(40, 89, 67, 1)", "rgba(119, 175, 156, 1)", "rgba(140, 215, 144, 1)"];
-const BGcolor = ["rgba(137, 30, 10, 0.8)", "rgba(215, 78, 9, 0.8)", "rgba(232, 181, 14, 0.8)",
-                 "rgba(40, 89, 67, 0.8)", "rgba(119, 175, 156, 0.8)", "rgba(140, 215, 144, 0.8)"];
-const Tcolor = ["white", "white", "rgba(18, 78, 120, 1)",
-                "white", "white", "rgba(18, 78, 120, 1)"];
-
+const Themecolor = ["rgba(246, 114, 128, 1)", "rgba(226, 62, 87, 1)", "rgba(82, 37, 70, 1)",
+                    "rgba(87, 204, 153, 1)", "rgba(56, 163, 165, 1)", "rgba(34, 87, 122, 1)"];
+const BGcolor = ["rgba(246, 114, 128, 0.8)", "rgba(226, 62, 87, 0.8)", "rgba(82, 37, 70, 0.8)",
+                 "rgba(87, 204, 153, 0.8)", "rgba(56, 163, 165, 0.8)", "rgba(34, 87, 122, 0.8)"];
+const Tcolor = ["white", "white", "white", "black", "black", "black"];
+//rgba(18, 78, 120, 1)
+// ["rgba(226, 62, 87, 1)", "rgba(136, 48, 78, 1)", "rgba(82, 37, 70, 1)",
+// with BLUE - ["rgba(246, 114, 128, 1)", "rgba(192, 108, 132, 1)", "rgba(108, 91, 123, 1)",
 export default function PriorityController(priority) {
     if(priority === null) 
         return ({
             level : null,
-            Themecolor : "rgba(24, 154, 180, 1)",
-            BGcolor : "rgba(24, 154, 180, 0.8)",
+            Themecolor : "rgba(0, 0, 0, 1)",
+            BGcolor : "rgba(0, 0, 0, 0.8)",
             Tcolor : "white",
         });
     const level = ["High", "Moderate", "Low", "High", "Moderate", "Low"];

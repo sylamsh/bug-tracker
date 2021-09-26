@@ -57,7 +57,7 @@ export default function BugView({bug, setCurrentId, collapse, setPriorityTheme})
     }
 
   return (
-    <Box sx={{ minWidth: 463}}>
+    <Box sx={{ minWidth: 463, maxWidth: 463}}>
       <Card className="bug-card" variant="outlined">
           <CardHeader
             action={
@@ -89,7 +89,7 @@ export default function BugView({bug, setCurrentId, collapse, setPriorityTheme})
           <Typography variant="h5" color="primary.main" sx={{mt:1}}>Details</Typography>
           <MDEditor.Markdown source={details} />
           {((user.result.role === 'admin' && devResponse) || (user.result.userName === assigned && stateEditResponse)) && 
-                <Typography variant="h5" color="primary.main" sx={{mt:1}}>Developer Response</Typography>}
+                <Typography variant="h5" color="primary.main" sx={{mt:1}} align="right">Developer Response</Typography>}
           {user.result.role === 'admin' && devResponse && <Typography>{devResponse}</Typography>}
           {user.result.userName === assigned && (stateEditResponse ? <Typography>{devResponse}</Typography> : 
           <TextField

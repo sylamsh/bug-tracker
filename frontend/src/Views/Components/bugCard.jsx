@@ -9,12 +9,15 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 const OutlinedCard = (props) => {
-    const {title, version, name, assigned, createdOn} = props.bug;
+    const {title, version, name, createdOn, isResolved} = props.bug;
 
     return  <React.Fragment>
     <CardContent style={{color : props.Tcolor}} >
       <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
         {props.level}
+        <Typography variant="inline" sx={{float: "right"}}>
+          {isResolved ? 'RESOLVED' : 'ACTIVE'}
+        </Typography>
       </Typography>
       <Typography variant="h5" component="div">
         {title}
@@ -43,7 +46,7 @@ export default function Bugcard(props) {
     }
     
     return (
-    <Box sx={{ minWidth: 463 }} onClick={Clicked} >
+    <Box sx={{ minWidth: 463, maxWidth: 463 }} onClick={Clicked} >
       <Card style={{backgroundColor : BGcolor}} className="bug-card">
           <OutlinedCard bug={props.bug} level={level} Tcolor={Tcolor}/>
       </Card>

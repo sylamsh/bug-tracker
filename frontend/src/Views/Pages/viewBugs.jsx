@@ -23,7 +23,7 @@ export default function ViewBugs({setPriorityTheme, setCurrentId}){
     const [assignedBugs, setAssignedBugs] = useState(true);
     const [filterValues, setFilterValues] = useState({
       version: 'All',
-      status: 'All',
+      status: false,
       priority: 'All',
     });
 

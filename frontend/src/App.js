@@ -19,21 +19,15 @@ function App() {
                 main: Themecolor,
                 text: Tcolor,
             },
-                secondary: {
+            secondary: {
                 main: '#f0f0c9',
             },
-                error: {
-                main : "#6e0e0a"
-            },
-                success : {
-                main: '#3f6c51',
+            success : {
+                main: '#80ed99',
                 // #83b692 - dark sea green
             },
-                info : {
+            info : {
                 main: BGcolor,
-            },
-                warning : {
-                main: '#ffffff',
             },
         },
     });
