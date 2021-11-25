@@ -16,7 +16,7 @@ Dashboard of the number of bugs active and resolved. Accessible to both admins a
 Here all the bug cards can be viewed with different filters. These cards can be expanded to view more information.
 - Admins have the option to edit/delete their bugs.
 - Developers can respond to their assigned bugs.
-- Admins can choose resolve the bug one's the developer responds.
+- Admins can choose to resolve the bug once the developer responds.
  
 `/form` - [bugForm](https://github.com/Sylamsh/bug-tracker/blob/main/frontend/src/Views/Pages/bugForm.jsx)  
 This form is **only accessible to admins**. The form is for both for creating and editing a bug. A [Markdown editor](https://github.com/uiwjs/react-md-editor) is provided for both "_steps to reproduce_" and "_details_" sections.
