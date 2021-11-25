@@ -14,7 +14,7 @@ Dashboard of the number of bugs active and resolved. Accessible to both admins a
 
 `/viewBugs` - [viewBugs](https://github.com/Sylamsh/bug-tracker/blob/main/frontend/src/Views/Pages/viewBugs.jsx)  
 Here all the bug cards can be viewed with different filters. These cards can be expanded to view more information.
-- Admins have the option to edit/delete or delete their bugs.
+- Admins have the option to edit/delete their bugs.
 - Developers can respond to their assigned bugs.
 - Admins can choose resolve the bug one's the developer responds.
  
